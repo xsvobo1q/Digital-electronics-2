@@ -11,7 +11,12 @@
 
 /* Defines -----------------------------------------------------------*/
 #define LED_GREEN   PB5     // AVR pin where green LED is connected
-#define SHORT_DELAY 50      // Delay in miliseconds
+#define UNIT_DELAY 200
+#define DOT UNIT_DELAY
+#define DASH UNIT_DELAY*3
+#define MARK_PAUSE UNIT_DELAY
+#define LETTER_PAUSE UNIT_DELAY*3
+#define WORD_PAUSE UNIT_DELAY*7
 #ifndef F_CPU
 #define F_CPU 16000000      // CPU frequency in Hz required for delay func
 #endif
@@ -22,6 +27,8 @@
 
 /* Variables ---------------------------------------------------------*/
 
+
+
 /* Function prototypes -----------------------------------------------*/
 
 /* Functions ---------------------------------------------------------*/
@@ -30,6 +37,7 @@
  */
 int main(void)
 {
+
     // Set pin as output in Data Direction Register
     // DDRB = DDRB or 0010 0000
     DDRB = DDRB | (1<<LED_GREEN);
@@ -41,12 +49,49 @@ int main(void)
     // Infinite loop
     while (1)
     {
-        // Pause several miliseconds
-        _delay_ms(SHORT_DELAY);
-
-        // Invert LED in Data Register
-        // PORTB = PORTB xor 0010 0000
+		// D
         PORTB = PORTB ^ (1<<LED_GREEN);
+		_delay_ms(DASH); // dash length is threefold as length of dot
+		PORTB = PORTB ^ (1<<LED_GREEN);
+		_delay_ms(MARK_PAUSE); // pause between marks is the same length as length of dot 
+		PORTB = PORTB ^ (1<<LED_GREEN);
+		_delay_ms(DOT);
+		PORTB = PORTB ^ (1<<LED_GREEN);
+		_delay_ms(MARK_PAUSE);
+		PORTB = PORTB ^ (1<<LED_GREEN);
+		_delay_ms(DOT);
+		PORTB = PORTB ^ (1<<LED_GREEN);
+		_delay_ms(LETTER_PAUSE); // pause between letters is threefold of dot length
+		
+		// E
+		
+		PORTB = PORTB ^ (1<<LED_GREEN);
+		_delay_ms(DOT);
+		PORTB = PORTB ^ (1<<LED_GREEN);
+		_delay_ms(LETTER_PAUSE);
+		
+		// 2
+		
+		PORTB = PORTB ^ (1<<LED_GREEN);
+		_delay_ms(DOT);
+		PORTB = PORTB ^ (1<<LED_GREEN);
+		_delay_ms(MARK_PAUSE);
+		PORTB = PORTB ^ (1<<LED_GREEN);
+		_delay_ms(DOT);
+		PORTB = PORTB ^ (1<<LED_GREEN);
+		_delay_ms(MARK_PAUSE);
+		PORTB = PORTB ^ (1<<LED_GREEN);
+		_delay_ms(DASH);
+		PORTB = PORTB ^ (1<<LED_GREEN);
+		_delay_ms(MARK_PAUSE);
+		PORTB = PORTB ^ (1<<LED_GREEN);
+		_delay_ms(DASH);
+		PORTB = PORTB ^ (1<<LED_GREEN);
+		_delay_ms(MARK_PAUSE);
+		PORTB = PORTB ^ (1<<LED_GREEN);
+		_delay_ms(DASH);
+		PORTB = PORTB ^ (1<<LED_GREEN);
+		_delay_ms(WORD_PAUSE); // pause between words is sevenfold as length of dot
     }
 
     // Will never reach this
