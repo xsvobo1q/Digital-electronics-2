@@ -29,37 +29,24 @@
  */
 int main(void)
 {
-    /* GREEN LED */
-    // Set pin as output in Data Direction Register...
     DDRB = DDRB | (1<<LED_GREEN);
-	
-    // ...and turn LED off in Data Register
     PORTB = PORTB & ~(1<<LED_GREEN);
-	
-
-    /* second LED */
 	
 	DDRC = DDRC | (1<<LED_RED);
 	PORTC = PORTC & ~(1<<LED_RED);
 	
 	/* Button */
-	
 	DDRD = DDRD & ~(1<<BTN);
 	PORTD = PORTD | (1<<BTN);
 
-    // Infinite loop
     while (1)
     {
-        // Pause several milliseconds
         _delay_ms(BLINK_DELAY);
 		if(bit_is_clear(PIND, 0)){
 			
-        PORTB = PORTB ^ (1<<LED_GREEN);
-		PORTC = PORTC ^ (1<<LED_RED);
-		
+			PORTB = PORTB ^ (1<<LED_GREEN);
+			PORTC = PORTC ^ (1<<LED_RED);		
 		}
     }
-
-    // Will never reach this
     return 0;
 }
