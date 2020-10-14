@@ -1,15 +1,3 @@
-/***********************************************************************
- * 
- * Control LEDs using functions from GPIO and Timer libraries. Do not 
- * use delay library any more.
- * ATmega328P (Arduino Uno), 16 MHz, AVR 8-bit Toolchain 3.6.2
- *
- * Copyright (c) 2018-2020 Tomas Fryza
- * Dept. of Radio Electronics, Brno University of Technology, Czechia
- * This work is licensed under the terms of the MIT license.
- * 
- **********************************************************************/
-
 /* Defines -----------------------------------------------------------*/
 #define LED_D1  PB5
 #define LED_D2  PB4
@@ -21,34 +9,25 @@
 #include "gpio.h"           // GPIO library for AVR-GCC
 #include "timer.h"          // Timer library for AVR-GCC
 
-/* Function definitions ----------------------------------------------*/
-/**
- * Main function where the program execution begins. Toggle three LEDs
- * on Multi-function shield with internal 8- and 16-bit timer modules.
- */
 int main(void)
 {
     /* Configuration of three LEDs */
     GPIO_config_output(&DDRB, LED_D1);
     GPIO_write_low(&PORTB, LED_D1);
-    // WRITE YOUR CODE HERE
+  
     GPIO_config_output(&DDRB, LED_D2);
     GPIO_write_low(&PORTB, LED_D2);
 	
 	GPIO_config_output(&DDRB, LED_D3);
 	GPIO_write_low(&PORTB, LED_D3);
-    /* Configuration of 8-bit Timer/Counter0 */
-    // WRITE YOUR CODE HERE
+	
+	/* Configuration timers and enable interrupt them */
     TIM0_overflow_16us();
     TIM0_overflow_interrupt_enable();
 
-    /* Configuration of 16-bit Timer/Counter1
-     * Set prescaler and enable overflow interrupt */
     TIM1_overflow_4ms();
     TIM1_overflow_interrupt_enable();
 
-    /* Configuration of 8-bit Timer/Counter2 */
-    // WRITE YOUR CODE HERE
     TIM2_overflow_2ms();
     TIM2_overflow_interrupt_enable();
 
@@ -58,18 +37,15 @@ int main(void)
     // Infinite loop
     while (1)
     {
-        /* Empty loop. All subsequent operations are performed exclusively 
-         * inside interrupt service routines ISRs */
+ 
     }
 
-    // Will never reach this
+ 
     return 0;
 }
 
 /* Interrupt service routines ----------------------------------------*/
-/**
- * ISR starts when Timer/Counter1 overflows. Toggle LED D2 on 
- * Multi-function shield. */
+
 ISR(TIMER0_OVF_vect) /*Interrupt Servis Routine - obsluha preruseni*/
 {
 	// WRITE YOUR CODE HERE
