@@ -39,17 +39,17 @@ int main(void)
 	GPIO_write_low(&PORTB, LED_D3);
     /* Configuration of 8-bit Timer/Counter0 */
     // WRITE YOUR CODE HERE
-    TIM0_overflow_16u();
+    TIM0_overflow_16us();
     TIM0_overflow_interrupt_enable();
 
     /* Configuration of 16-bit Timer/Counter1
      * Set prescaler and enable overflow interrupt */
-    TIM1_overflow_33ms();
+    TIM1_overflow_4ms();
     TIM1_overflow_interrupt_enable();
 
     /* Configuration of 8-bit Timer/Counter2 */
     // WRITE YOUR CODE HERE
-    TIM2_overflow_512u();
+    TIM2_overflow_2ms();
     TIM2_overflow_interrupt_enable();
 
     // Enables interrupts by setting the global interrupt mask
@@ -70,19 +70,19 @@ int main(void)
 /**
  * ISR starts when Timer/Counter1 overflows. Toggle LED D2 on 
  * Multi-function shield. */
-ISR(TIMER0_OVF_vect) /*Interrupt Servis Routine - pbsluha preruseni*/
+ISR(TIMER0_OVF_vect) /*Interrupt Servis Routine - obsluha preruseni*/
 {
 	// WRITE YOUR CODE HERE
 	GPIO_toggle(&PORTB, LED_D1);
 }
 
-ISR(TIMER1_OVF_vect) /*Interrupt Servis Routine - pbsluha preruseni*/
+ISR(TIMER1_OVF_vect) /*Interrupt Servis Routine - obsluha preruseni*/
 {
 	// WRITE YOUR CODE HERE
 	GPIO_toggle(&PORTB, LED_D2);
 }
 
-ISR(TIMER2_OVF_vect) /*Interrupt Servis Routine - pbsluha preruseni*/
+ISR(TIMER2_OVF_vect) /*Interrupt Servis Routine - obsluha preruseni*/
 {
     // WRITE YOUR CODE HERE
 	GPIO_toggle(&PORTB, LED_D3);
