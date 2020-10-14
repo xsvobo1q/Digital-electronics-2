@@ -62,7 +62,7 @@
 #define TIM2_overflow_16us()	TCCR2B &= ~((1<<CS22) | (1<<CS21)); TCCR2B |= (1<<CS20);
 #define TIM2_overflow_128us()	TCCR2B &= ~((1<<CS22) | (1<<CS20)); TCCR2B |= (1<<CS21);
 #define TIM2_overflow_512us()	TCCR2B &= ~(1<<CS22); TCCR2B |= ((1<<CS21) | (1<<CS20));
-#define TIM2_overflow_1ms()		TCCR2B &= ~((1<<CS21) | (1<CS20)); TCCR2B |= (1<<CS22);
+#define TIM2_overflow_1ms()		TCCR2B &= ~((1<<CS21) | (1<<CS20)); TCCR2B |= (1<<CS22);
 #define TIM2_overflow_2ms()		TCCR2B &= ~(1<<CS21); TCCR2B |= ((1<<CS22) | (1<CS20));
 #define TIM2_overflow_4ms()		TCCR2B &= ~(1<<CS20); TCCR2B |= ((1<<CS22) | (1<<CS21));
 #define TIM2_overflow_16ms()	TCCR2B |= ((1<<CS22) | (1<<CS21) | (1<<CS20));
