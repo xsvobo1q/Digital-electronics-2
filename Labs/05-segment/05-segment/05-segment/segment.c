@@ -16,6 +16,7 @@
 #include "segment.h"
 
 /* Variables ---------------------------------------------------------*/
+/* 7-segment numbers
 // Active-low digits 0 to 9
 uint8_t segment_value[] = {
 	// abcdefgDP
@@ -29,6 +30,18 @@ uint8_t segment_value[] = {
 	0b00011111,		// Digit 7
 	0b00000001,		// Digit 8
 	0b00001001};	// Digit 9
+	
+	*/
+	//snakeIndexes
+uint8_t segment_value[] = {
+	0b01111111,
+	0b00111111,
+	0b10011111,
+	0b11001111,
+	0b11100111,
+	0b11110011,
+	0b11111011
+};
 
 // Active-high position 0 to 3
 uint8_t segment_position[] = {
@@ -117,5 +130,40 @@ void SEG_update_shift_regs(uint8_t segments, uint8_t position)
 /*--------------------------------------------------------------------*/
 /* SEG_clear */
 
+void SEG_clear(){
+	uint8_t bit_number = 0;
+	GPIO_write_low(&PORTD, SEGMENT_LATCH);
+	GPIO_write_low(&PORTD, SEGMENT_CLK);
+	GPIO_write_low(&PORTB, SEGMENT_DATA);
+
+	_delay_us(1);
+	
+	for (bit_number; bit_number<8; bit_number++)
+	{
+		GPIO_write_high(&PORTB, SEGMENT_DATA);
+		_delay_us(1);
+		GPIO_write_high(&PORTD, SEGMENT_CLK);
+		_delay_us(1);
+		GPIO_write_low(&PORTD, SEGMENT_CLK);
+	}
+
+	
+	for (bit_number;bit_number<8;bit_number++)
+	{
+		GPIO_write_low(&PORTB, SEGMENT_DATA);
+		_delay_us(1);
+		GPIO_write_high(&PORTD, SEGMENT_CLK);
+		_delay_us(1);		
+		GPIO_write_low(&PORTD, SEGMENT_CLK);
+	}
+	GPIO_write_high(&PORTD, SEGMENT_LATCH);
+	_delay_us(1);
+}
+
 /*--------------------------------------------------------------------*/
 /* SEG_clk_2us */
+
+void SEG_clk_2us(){
+	
+	
+}

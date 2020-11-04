@@ -10,13 +10,14 @@
  **********************************************************************/
 
 /* Includes ----------------------------------------------------------*/
+#define F_CPU 16000000
 #include <avr/io.h>         // AVR device-specific IO definitions
+#include <util/delay.h>
 #include <avr/interrupt.h>  // Interrupts standard C library for AVR-GCC
 #include "timer.h"          // Timer library for AVR-GCC
 #include "segment.h"        // Seven-segment display library for AVR-GCC
 
-uint8_t decimals = 0; //desitky
-uint8_t singles = 0; //jendotky
+uint8_t snakeIndex = 0; //index
 
 /* Function definitions ----------------------------------------------*/
 /**
@@ -30,17 +31,23 @@ int main(void)
     SEG_init();
 
     // Test of SSD: display number '3' at position 0
-    SEG_update_shift_regs(0, 0);
+    SEG_update_shift_regs(3, 0);
+	_delay_ms(2000);
+	SEG_update_shift_regs(5, 3);
+	_delay_ms(2000);
 
     /* Configure 16-bit Timer/Counter1
      * Set prescaler and enable overflow interrupt */
-	TIM1_overflow_1s();
+	TIM1_overflow_262ms();
 	TIM1_overflow_interrupt_enable();
 	
 	TIM0_overflow_128us();
 	TIM0_overflow_interrupt_enable();
     // Enables interrupts by setting the global interrupt mask
 	sei();
+	
+
+	
     // Infinite loop
     while (1)
     {
@@ -59,27 +66,13 @@ int main(void)
  */
 ISR(TIMER1_OVF_vect)
 {
-	singles++;
-	if (singles > 9)
-	{
-		singles = 0;
-		decimals++;
-		if (decimals > 5)
-		{
-			decimals = 0;
-		}
+	snakeIndex++;
+	if (snakeIndex > 6){ 
+		snakeIndex = 0;
 	}
 }
 
 ISR(TIMER0_OVF_vect)
 {
-	static uint8_t position = 0;
-	if (position == 0)
-	{
-		SEG_update_shift_regs(singles, 0);
-		position = 1;
-	}else{
-		SEG_update_shift_regs(decimals, 1);
-		position = 0;
-	}
+	SEG_update_shift_regs(snakeIndex, 0);
 }
