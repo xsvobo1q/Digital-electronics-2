@@ -126,6 +126,12 @@ int main(void)
     // Put string(s) at LCD display
     lcd_gotoxy(1, 0);
     lcd_puts("00:00.0");
+	lcd_gotoxy(11,0);
+	lcd_putc('a');
+	lcd_gotoxy(1,1);
+	lcd_putc('b');
+	lcd_gotoxy(11,1);
+	lcd_putc('c');
 
     // Configure 8-bit Timer/Counter2 for Stopwatch
     // Set prescaler and enable overflow interrupt every 16 ms
@@ -135,9 +141,7 @@ int main(void)
 	// Configuration of Timer/Counter0
 	TIM0_overflow_16ms();
 	TIM0_overflow_interrupt_enable();
-	
-	TIM2_overflow_16ms();
-	TIM2_overflow_interrupt_enable();
+
 
     // Enables interrupts by setting the global interrupt mask
     sei();
@@ -166,9 +170,6 @@ ISR(TIMER2_OVF_vect)
 	static uint8_t secs = 0;        // Seconds
 	static uint8_t minutes = 0;     // Minutes
 	char lcd_string[2] = "  ";      // String for converting numbers by itoa()
-//	static uint8_t partOfString = 0;   // Help variables and strings for running text
-//	char partOfOwnText[3] = " ";
-	
 	
     number_of_overflows++;
     if (number_of_overflows >= 6)
@@ -207,26 +208,14 @@ ISR(TIMER2_OVF_vect)
 			itoa(pow(secs, 2), lcd_string, 10);
 			lcd_gotoxy(11, 0);
 			lcd_puts(lcd_string);
-			
-/*			if (partOfString > sizeof(ownText))
-			{
-				partOfString = 0;
-			}
-			partOfOwnText[0] = ownText[partOfString];
-			partOfOwnText[1] = ownText[partOfString+1];
-			partOfOwnText[2] = ownText[partOfString+2];
-			partOfOwnText[3] = ownText[partOfString+3];
-			partOfOwnText[4] = ownText[partOfString+4];
-			lcd_gotoxy(11, 1);
-			lcd_puts(partOfOwnText);
-			partOfString++;
-*/	
+
 		}
 		itoa(tens, lcd_string, 10);
 		lcd_gotoxy(7, 0);
 		lcd_puts(lcd_string);
     }
 }
+
 
 ISR(TIMER0_OVF_vect)
 {
