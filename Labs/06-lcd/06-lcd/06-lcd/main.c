@@ -191,19 +191,25 @@ ISR(TIMER2_OVF_vect)
 				{
 					minutes = 0;
 				}
-				itoa(minutes/10, lcd_string, 10);
+				itoa(minutes, lcd_string, 10);
+				lcd_gotoxy(1, 0);
+				lcd_puts(lcd_string);
+				/*itoa(minutes/10, lcd_string, 10);
 				lcd_gotoxy(1, 0);
 				lcd_puts(lcd_string);
 				itoa(minutes%10, lcd_string, 10);
 				lcd_gotoxy(2, 0);
-				lcd_puts(lcd_string);
+				lcd_puts(lcd_string);*/
 			}
-			itoa(secs/10, lcd_string, 10);
+			itoa(secs, lcd_string, 10);
+			lcd_gotoxy(4, 0);
+			lcd_puts(lcd_string);
+			/*itoa(secs/10, lcd_string, 10);
 			lcd_gotoxy(4, 0);
 			lcd_puts(lcd_string);
 			itoa(secs%10, lcd_string, 10);
 			lcd_gotoxy(5, 0);
-			lcd_puts(lcd_string);
+			lcd_puts(lcd_string);*/
 			
 			itoa(pow(secs, 2), lcd_string, 10);
 			lcd_gotoxy(11, 0);
