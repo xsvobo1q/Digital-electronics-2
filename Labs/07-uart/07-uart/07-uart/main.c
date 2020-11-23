@@ -58,7 +58,7 @@ int main(void)
     // Enable interrupt and set the overflow prescaler to 262 ms
 	ADCSRB |= (1 << ADTS2);
 	ADCSRB |= (1 << ADTS1);
-	ADCSRB |= ~(1 << ADTS0);
+	ADCSRB &= ~(1 << ADTS0);
 	TIM1_overflow_interrupt_enable();
 	TIM1_overflow_262ms();
     // Initialize UART to asynchronous, 8N1, 9600 Bauds
