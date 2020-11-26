@@ -4,7 +4,11 @@
 
 gpio.c
 
+lcd.c
+
 main.c
+
+serial_controller_for_diodes.c
 
 uart.c
 
