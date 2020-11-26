@@ -71,25 +71,26 @@ int main(void)
     {
 		if ((mux == 1) & (trigEnable == 1))
 		{
- 			if (averaging == 4) 
- 			{
- 				averaging = 0;
- 				mux++;
- 			}
 			_delay_us(50);
 			GPIO_write_high(&PORTB, sensTrigFront);
 			_delay_us(10);
 			GPIO_write_low(&PORTB, sensTrigFront);
 			trigEnable = 0;
+ 			if (averaging == 4)
+ 			{
+	 			averaging = 0;
+	 			mux++;
+ 			}
+			
 		}
 		if ((mux == 2) & (trigEnable == 1))
 		{
- 			if (averaging == 4)	mux++;
 			_delay_us(50);
 			GPIO_write_high(&PORTB, sensTrigRear);
 			_delay_us(10);
 			GPIO_write_low(&PORTB, sensTrigRear);
-			trigEnable = 0;			
+			trigEnable = 0;	
+			if (averaging == 4)	mux++;		
 
 		}
 		if (mux == 3)
@@ -145,16 +146,16 @@ void displayValues(float distanceRear, float distanceFront, uint8_t averaging, u
 		GPIO_write_low(&PORTB, buzzer);
 	}
 	
-	sprintf(uartString,"Front: %0.1f  ||  Rear: %0.1f \r\n",distanceFront, distanceRear);
+	sprintf(uartString,"Front: %0.2lf  ||  Rear: %0.2lf \r\n",distanceFront, distanceRear);
 	uart_puts(uartString);
 	
-	sprintf(dispString,"Front: %0.1f cm",distanceFront);
+	sprintf(dispString,"Front: %0.2f cm",distanceFront);
 	lcd_gotoxy(1, 0);
 	lcd_puts("                ");
 	lcd_gotoxy(1, 0);
 	lcd_puts(dispString);
 	
-	sprintf(dispString,"Rear: %0.1f cm",distanceRear);
+	sprintf(dispString,"Rear: %0.2f cm",distanceRear);
 	lcd_gotoxy(1, 1);
 	lcd_puts("                ");
 	lcd_gotoxy(1, 1);
@@ -166,6 +167,51 @@ void displayValues(float distanceRear, float distanceFront, uint8_t averaging, u
 	} else if((distanceFront > 5) & (distanceFront < 10))
 	{
 		DIODE_update_shift_regs_FRONT(6);
+	} else if((distanceFront > 10) & (distanceFront < 15))
+	{
+		DIODE_update_shift_regs_FRONT(5);
+	} else if((distanceFront > 15) & (distanceFront < 20))
+	{
+		DIODE_update_shift_regs_FRONT(4);
+	} else if((distanceFront > 20) & (distanceFront < 25))
+	{
+		DIODE_update_shift_regs_FRONT(3);
+	} else if((distanceFront > 25) & (distanceFront < 30))
+	{
+		DIODE_update_shift_regs_FRONT(2);
+	} else if((distanceFront > 30) & (distanceFront < 35))	
+	{
+		DIODE_update_shift_regs_FRONT(1);
+	} else
+	{
+		DIODE_update_shift_regs_FRONT(0);
 	}
-		
+	
+	
+	if (distanceRear < 5)
+	{
+		DIODE_update_shift_regs_REAR(7);
+	} else if((distanceRear > 5) & (distanceRear < 10))
+	{
+		DIODE_update_shift_regs_REAR(6);
+	} else if((distanceRear > 10) & (distanceRear < 15))
+	{
+		DIODE_update_shift_regs_REAR(5);
+	} else if((distanceRear > 15) & (distanceRear < 20))
+	{
+		DIODE_update_shift_regs_REAR(4);
+	} else if((distanceRear > 20) & (distanceRear < 25))
+	{
+		DIODE_update_shift_regs_REAR(3);
+	} else if((distanceRear > 25) & (distanceRear < 30))
+	{
+		DIODE_update_shift_regs_REAR(2);
+	} else if((distanceRear > 30) & (distanceRear < 35))
+	{
+		DIODE_update_shift_regs_REAR(1);
+	} else 
+	{
+		DIODE_update_shift_regs_REAR(0);
+	}
+	
 }

@@ -17,6 +17,7 @@
 // Active-high position 0 to 7
 uint8_t diode_number[] = {
 	// p3p2p1p0....
+	0b00000000,
 	0b00000001,   // Position 0 = 2 cm
 	0b00000011,   // Position 1 = 4 cm 
 	0b00000111,	  // Position 2 = 6 cm
@@ -28,6 +29,7 @@ uint8_t diode_number[] = {
 
 uint8_t diode_number1[] = {
 	// p3p2p1p0....
+	0b00000000,
 	0b00000001,   // Position 0 = 2 cm
 	0b00000011,   // Position 1 = 4 cm
 	0b00000111,	  // Position 2 = 6 cm
