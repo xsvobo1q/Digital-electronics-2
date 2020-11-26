@@ -25,11 +25,11 @@
 
 volatile uint8_t trigEnable = 1;
 volatile uint8_t averaging = 0;
-volatile float distanceFront = 0;
-volatile float distanceRear = 0;
+volatile double distanceFront = 0;
+volatile double distanceRear = 0;
 uint8_t mux = 1;
 
-void displayValues(float distance, uint8_t averaging, uint8_t mux);
+void displayValues(float distance, float distanceFront, uint8_t averaging, uint8_t mux);
 
 int main(void)
 {
@@ -60,14 +60,14 @@ int main(void)
     {
 		if ((mux == 1) & (trigEnable == 1))
 		{
-			if (averaging == 10)
-			{
-				displayValues(distanceFront, averaging, mux);
-				distanceFront = 0;
-				averaging = 0;
-				mux++;
-			}
-			//_delay_ms(5);
+ 			if (averaging == 4) 
+ 			{
+// 				displayValues(distanceFront, averaging, mux);
+// 				distanceFront = 0;
+ 				averaging = 0;
+ 				mux++;
+ 			}
+			_delay_us(50);
 			GPIO_write_high(&PORTB, sensTrigFront);
 			_delay_us(10);
 			GPIO_write_low(&PORTB, sensTrigFront);
@@ -75,19 +75,27 @@ int main(void)
 		}
 		if ((mux == 2) & (trigEnable == 1))
 		{
-			if (averaging == 10)
-			{
-				displayValues(distanceRear, averaging, mux);
-				distanceRear = 0;
-				averaging = 0;
-				mux = 1;
-			}
-			//_delay_ms(5);
+ 			if (averaging == 4)	mux++;
+//			{
+// 				displayValues(distanceRear, averaging, mux);
+// 				distanceRear = 0;
+// 				averaging = 0;
+				
+ //			}
+			_delay_us(50);
 			GPIO_write_high(&PORTB, sensTrigRear);
 			_delay_us(10);
 			GPIO_write_low(&PORTB, sensTrigRear);
 			trigEnable = 0;			
 
+		}
+		if (mux == 3)
+		{
+			displayValues(distanceRear, distanceFront, averaging, mux);
+			distanceFront = 0;
+			distanceRear = 0;
+			averaging = 0;
+			mux = 1;
 		}
 		
     }
@@ -97,7 +105,7 @@ ISR(INT1_vect){
 	
 	do{
 		distanceFront++;
-		_delay_us(1);
+		//_delay_us(1);
 	}while(GPIO_read(&PIND, sensEchoFront));
 	
 	averaging++;
@@ -109,7 +117,7 @@ ISR(INT0_vect){
 	
 	do{
 		distanceRear++;
-		_delay_us(1);
+		//_delay_us(1);
 	}while(GPIO_read(&PIND, sensEchoRear));
 	
 	averaging++;
@@ -117,13 +125,18 @@ ISR(INT0_vect){
 
 }
 
-void displayValues(float distance, uint8_t averaging, uint8_t mux){
+void displayValues(float distanceRear, float distanceFront, uint8_t averaging, uint8_t mux){
+	
+	_delay_ms(10);
 	
 	char uartString[50];
 	
-	distance = distance*(0.1901);
-	distance = distance/averaging;
-	if (distance < 10)
+	distanceRear = distanceRear/averaging;
+	distanceFront = distanceFront/averaging;
+	distanceRear = distanceRear*(0.18692);
+	distanceFront = distanceFront*(0.18692);
+	
+	if ((distanceFront < 10) | (distanceRear < 10))
 	{
 		GPIO_write_high(&PORTB, buzzer);
 	} 
@@ -131,8 +144,8 @@ void displayValues(float distance, uint8_t averaging, uint8_t mux){
 	{
 		GPIO_write_low(&PORTB, buzzer);
 	}
-	if (mux == 1) sprintf(uartString,"Front: = %0.1f\r\n",distance);
-	if (mux == 2) sprintf(uartString,"      Rear: =  %0.1f\r\n",distance);
-	uart_puts(uartString);
 	
+	sprintf(uartString,"Front: %0.1f      ||      Rear: %0.1f \r\n",distanceFront, distanceRear);
+
+	uart_puts(uartString);
 }
