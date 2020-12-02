@@ -18,6 +18,7 @@
 #include "lcd.h"
 #include "lcd_definitions.h"
 #include "timer.h"
+#include <stdbool.h>
 
 #define sensTrigFront PB2
 #define sensEchoFront PD3
@@ -33,6 +34,7 @@ volatile uint8_t averaging = 0;
 volatile float distanceFront = 0;
 volatile float distanceRear = 0;
 uint8_t mux = 1;
+bool help = true;
 
 int displayValues(float distance, float distanceFront);
 
@@ -44,6 +46,14 @@ int main(void)
 	lcd_gotoxy(2, 1);
 	lcd_puts("jedes lip...");
 	_delay_ms(1000);
+	lcd_clrscr();
+	lcd_puts("Front:");
+	lcd_gotoxy(0, 1);
+	lcd_puts("Rear:");
+	lcd_gotoxy(14, 0);
+	lcd_puts("cm");
+	lcd_gotoxy(14, 1);
+	lcd_puts("cm");
 
 	DIODE_init();
 	
@@ -64,11 +74,10 @@ int main(void)
 	TIM1_overflow_1s();
 	TIM1_overflow_interrupt_enable();
 	
-	EICRA |= ((1<<ISC11) | (1<<ISC10));
-	EIMSK |= (1<<INT1);
-	
-	EICRA |= ((1<<ISC01) | (1<<ISC00));
-	EIMSK |= (1<<INT0);
+	EIMSK |= (1<<INT1);	// interrupt enable on INT1
+	EICRA &= ~(1<<ISC11); EICRA |= (1<<ISC10);
+	EIMSK |= (1<<INT0);	// interrupt enable on INT0
+	EICRA &= ~(1<<ISC01); EICRA |= (1<<ISC00);
 	
 	sei();
 	
@@ -76,12 +85,14 @@ int main(void)
     while (1) 
     {
 		if ((mux == 1) & (trigEnable == 1))
-		{
+		{	
+			trigEnable = 0;
+			help = true;
 			_delay_us(50);
 			GPIO_write_high(&PORTB, sensTrigFront);
 			_delay_us(10);
 			GPIO_write_low(&PORTB, sensTrigFront);
-			trigEnable = 0;
+			
  			if (averaging == 4)
  			{
 				distanceFront = distanceFront/averaging;
@@ -92,16 +103,19 @@ int main(void)
 		}
 		if ((mux == 2) & (trigEnable == 1))
 		{
+			trigEnable = 0;
+			help = true;
 			_delay_us(50);
 			GPIO_write_high(&PORTB, sensTrigRear);
 			_delay_us(10);
-			GPIO_write_low(&PORTB, sensTrigRear);
-			trigEnable = 0;	
+			GPIO_write_low(&PORTB, sensTrigRear);		
+			
 			if (averaging == 4){
 				distanceRear = distanceRear/averaging;
 				averaging = 0;	
 				mux++;		
 			}
+			
 		}
 		if (mux == 3)
 		{
@@ -116,21 +130,33 @@ int main(void)
 
 ISR(INT1_vect){
 	
-	while(GPIO_read(&PIND, sensEchoFront)){
-		distanceFront++;
+	if (help){
+		TIM0_overflow_16ms();
+		help = false;
+	}else{
+		TIM0_stop();
+		distanceFront += TCNT0;
+		TCNT0 = 0;
+		averaging++;
+		trigEnable = 1;
+		help = true;
 	}
-	averaging++;
-	trigEnable = 1;
-
+	
 }
 
 ISR(INT0_vect){
-	
-	while(GPIO_read(&PIND, sensEchoRear)){
-		distanceRear++;
+
+	if (help){
+		TIM0_overflow_16ms();
+		help = false;
+	}else{
+		TIM0_stop();
+		distanceRear += TCNT0;
+		TCNT0 = 0;
+		averaging++;
+		trigEnable = 1;
+		help = true;
 	}
-	averaging++;
-	trigEnable = 1;
 
 }
 
@@ -143,10 +169,10 @@ int displayValues(float distanceRear, float distanceFront){
 	
 	char uartString[50];
 	char dispString[50];
-	float dist = 0;	
+	uint16_t dist = 0;	
 
-	distanceRear = distanceRear*0.15925;
-	distanceFront = distanceFront*0.053476;
+	distanceRear = distanceRear/3;
+	distanceFront = distanceFront/3;
 	
 	if (distanceRear < distanceFront)
 	{
@@ -173,16 +199,16 @@ int displayValues(float distanceRear, float distanceFront){
 	sprintf(uartString,"Front: %0.2lf  ||  Rear: %0.2lf \r\n",distanceFront, distanceRear);
 	uart_puts(uartString);
 	
-	sprintf(dispString,"Front: %0.2f cm",distanceFront);
-	lcd_gotoxy(1, 0);
-	lcd_puts("                ");
-	lcd_gotoxy(1, 0);
+	sprintf(dispString,"%0.2f",distanceFront);
+	lcd_gotoxy(8, 0);
+	lcd_puts("      ");
+	lcd_gotoxy(8, 0);
 	lcd_puts(dispString);
 	
-	sprintf(dispString,"Rear: %0.2f cm",distanceRear);
-	lcd_gotoxy(1, 1);
-	lcd_puts("                ");
-	lcd_gotoxy(1, 1);
+	sprintf(dispString,"%0.2f",distanceRear);
+	lcd_gotoxy(8, 1);
+	lcd_puts("      ");
+	lcd_gotoxy(8, 1);
 	lcd_puts(dispString);
 	
 	if (distanceFront < 7)
