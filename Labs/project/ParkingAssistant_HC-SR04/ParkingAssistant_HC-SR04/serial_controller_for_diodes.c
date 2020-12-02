@@ -51,6 +51,7 @@ void DIODE_init(void)
 	GPIO_config_output(&DDRC, DATA_INPUT_FRONT);
 	GPIO_config_output(&DDRC, SEGMENT_CLK);
 	GPIO_config_output(&DDRC, SEGMENT_LATCH);
+	GPIO_config_output(&DDRC, SEGMENT_LATCH2);
 
 }
 
@@ -140,7 +141,7 @@ void DIODE_update_shift_regs_REAR(uint8_t number1)
 	//
 	GPIO_write_low(&PORTC,DATA_INPUT_REAR);
 	GPIO_write_low(&PORTC, SEGMENT_CLK);
-	GPIO_write_low(&PORTC, SEGMENT_LATCH);
+	GPIO_write_low(&PORTC, SEGMENT_LATCH2);
 	// Wait 1 us
 	_delay_us(1);
 	
@@ -172,7 +173,7 @@ void DIODE_update_shift_regs_REAR(uint8_t number1)
 	
 	
 	// 	// Pull LATCH high
-	GPIO_write_high(&PORTC,SEGMENT_LATCH);
+	GPIO_write_high(&PORTC,SEGMENT_LATCH2);
 
 	// Wait 1 us
 	_delay_us(1);

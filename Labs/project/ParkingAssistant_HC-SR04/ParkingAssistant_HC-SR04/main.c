@@ -17,6 +17,7 @@
 #include "serial_controller_for_diodes.h"
 #include "lcd.h"
 #include "lcd_definitions.h"
+#include "timer.h"
 
 #define sensTrigFront PB2
 #define sensEchoFront PD3
@@ -26,13 +27,14 @@
 
 #define buzzer PB4
 
+volatile int beepTiming = 0;
 volatile uint8_t trigEnable = 1;
 volatile uint8_t averaging = 0;
 volatile float distanceFront = 0;
 volatile float distanceRear = 0;
 uint8_t mux = 1;
 
-void displayValues(float distance, float distanceFront, uint8_t averaging, uint8_t mux);
+int displayValues(float distance, float distanceFront);
 
 int main(void)
 {
@@ -57,6 +59,10 @@ int main(void)
 	GPIO_write_low(&PORTB, sensTrigRear);
 	
 	GPIO_config_output(&DDRB, buzzer);
+	GPIO_write_low(&PORTB, buzzer);
+	
+	TIM1_overflow_1s();
+	TIM1_overflow_interrupt_enable();
 	
 	EICRA |= ((1<<ISC11) | (1<<ISC10));
 	EIMSK |= (1<<INT1);
@@ -78,6 +84,7 @@ int main(void)
 			trigEnable = 0;
  			if (averaging == 4)
  			{
+				distanceFront = distanceFront/averaging;
 	 			averaging = 0;
 	 			mux++;
  			}
@@ -90,15 +97,17 @@ int main(void)
 			_delay_us(10);
 			GPIO_write_low(&PORTB, sensTrigRear);
 			trigEnable = 0;	
-			if (averaging == 4)	mux++;		
-
+			if (averaging == 4){
+				distanceRear = distanceRear/averaging;
+				averaging = 0;	
+				mux++;		
+			}
 		}
 		if (mux == 3)
 		{
-			displayValues(distanceRear, distanceFront, averaging, mux);
+			beepTiming = displayValues(distanceRear, distanceFront);
 			distanceFront = 0;
 			distanceRear = 0;
-			averaging = 0;
 			mux = 1;
 		}
 		
@@ -107,9 +116,9 @@ int main(void)
 
 ISR(INT1_vect){
 	
-	do{
+	while(GPIO_read(&PIND, sensEchoFront)){
 		distanceFront++;
-	}while(GPIO_read(&PIND, sensEchoFront));
+	}
 	averaging++;
 	trigEnable = 1;
 
@@ -117,35 +126,50 @@ ISR(INT1_vect){
 
 ISR(INT0_vect){
 	
-	do{
+	while(GPIO_read(&PIND, sensEchoRear)){
 		distanceRear++;
-	}while(GPIO_read(&PIND, sensEchoRear));
+	}
 	averaging++;
 	trigEnable = 1;
 
 }
 
-void displayValues(float distanceRear, float distanceFront, uint8_t averaging, uint8_t mux){
-	
-	_delay_ms(1);
+ISR(TIMER1_OVF_vect){
+	GPIO_toggle(&PORTB, buzzer);
+	TCNT1 = beepTiming;
+}
+
+int displayValues(float distanceRear, float distanceFront){
 	
 	char uartString[50];
 	char dispString[50];
+	float dist = 0;	
+
+	distanceRear = distanceRear*0.15925;
+	distanceFront = distanceFront*0.053476;
 	
-	distanceRear = distanceRear/averaging;
-	distanceFront = distanceFront/averaging;
-	distanceRear = distanceRear*(0.18692);
-	distanceFront = distanceFront*(0.18692);
-	
-	if ((distanceFront < 100) | (distanceRear < 100))
+	if (distanceRear < distanceFront)
 	{
-		GPIO_write_high(&PORTB, buzzer);
+		dist = distanceRear;
 	} 
 	else
 	{
-		GPIO_write_low(&PORTB, buzzer);
+		dist = distanceFront;
 	}
 	
+	if ((distanceFront < 7) | (distanceRear < 7))
+	{
+		GPIO_write_high(&PORTB, buzzer);
+		TIM1_overflow_interrupt_disable();
+	} 
+	else if((distanceFront > 40) & (distanceRear > 40))
+	{
+		GPIO_write_low(&PORTB, buzzer);
+		TIM1_overflow_interrupt_disable();
+	}else{
+		TIM1_overflow_interrupt_enable();
+	}
+
 	sprintf(uartString,"Front: %0.2lf  ||  Rear: %0.2lf \r\n",distanceFront, distanceRear);
 	uart_puts(uartString);
 	
@@ -161,10 +185,10 @@ void displayValues(float distanceRear, float distanceFront, uint8_t averaging, u
 	lcd_gotoxy(1, 1);
 	lcd_puts(dispString);
 	
-	if (distanceFront < 5)
+	if (distanceFront < 7)
 	{
 		DIODE_update_shift_regs_FRONT(7);
-	} else if((distanceFront > 5) & (distanceFront < 10))
+	} else if((distanceFront > 7) & (distanceFront < 10))
 	{
 		DIODE_update_shift_regs_FRONT(6);
 	} else if((distanceFront > 10) & (distanceFront < 15))
@@ -173,18 +197,23 @@ void displayValues(float distanceRear, float distanceFront, uint8_t averaging, u
 	} else if((distanceFront > 15) & (distanceFront < 20))
 	{
 		DIODE_update_shift_regs_FRONT(4);
+		beepTiming = 52000;
 	} else if((distanceFront > 20) & (distanceFront < 25))
 	{
 		DIODE_update_shift_regs_FRONT(3);
+		beepTiming = 46000;
 	} else if((distanceFront > 25) & (distanceFront < 30))
 	{
 		DIODE_update_shift_regs_FRONT(2);
+		beepTiming = 40000;
 	} else if((distanceFront > 30) & (distanceFront < 35))	
 	{
 		DIODE_update_shift_regs_FRONT(1);
+		beepTiming = 34000;
 	} else
 	{
 		DIODE_update_shift_regs_FRONT(0);
+		beepTiming = 28000;
 	}
 	
 	
@@ -213,5 +242,30 @@ void displayValues(float distanceRear, float distanceFront, uint8_t averaging, u
 	{
 		DIODE_update_shift_regs_REAR(0);
 	}
+	
+	if ((dist > 7) & (dist < 10))
+	{
+		beepTiming = 62000;
+	}else if ((dist > 10) & (dist < 15))
+	{
+		beepTiming = 58000;
+	}else if ((dist > 15) & (dist < 20))
+	{
+		beepTiming = 52000;
+	}else if ((dist > 20) & (dist < 25))
+	{
+		beepTiming = 46000;
+	}else if ((dist > 25) & (dist < 30))
+	{
+		beepTiming = 40000;
+	}else if ((dist > 30) & (dist < 35))
+	{
+		beepTiming = 34000;
+	}else
+	{
+		beepTiming = 28000;
+	}
+
+	return beepTiming;
 	
 }

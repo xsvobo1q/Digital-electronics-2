@@ -12,6 +12,7 @@
 #define DATA_INPUT_FRONT     PC0
 #define DATA_INPUT_REAR		 PC3
 #define SEGMENT_LATCH   PC1
+#define SEGMENT_LATCH2   PC4
 #define SEGMENT_CLK     PC2
 
 void DIODE_init(void);

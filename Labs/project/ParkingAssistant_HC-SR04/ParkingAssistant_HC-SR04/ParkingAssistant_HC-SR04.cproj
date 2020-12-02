@@ -146,6 +146,9 @@
     <Compile Include="serial_controller_for_diodes.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="timer.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="uart.c">
       <SubType>compile</SubType>
     </Compile>

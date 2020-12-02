@@ -40,7 +40,6 @@
 #define TIM0_overflow_1ms()		TCCR0B &= ~(1<<CS02); TCCR0B |= ((1<<CS01) | (1<<CS00));
 #define TIM0_overflow_4ms()		TCCR0B &= ~((1<<CS01) | (1<<CS00)); TCCR0B |= (1<<CS02); 
 #define TIM0_overflow_16ms()	TCCR0B &= ~(1<<CS01); TCCR0B |= ((1<<CS02) | (1<<CS00));
-#define TIM0_overflow_200ns()	TCNT0 = 0xfd; TCCR0B &= ~((1<<CS02) | (1<<CS01)); TCCR0B |= (1<<CS00);
 
 #define TIM0_overflow_interrupt_enable()    TIMSK0 |= (1<<TOIE0);
 #define TIM0_overflow_interrupt_disable()   TIMSK0 &= ~(1<<TOIE0);  
