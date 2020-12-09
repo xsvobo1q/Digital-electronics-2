@@ -1,0 +1,102 @@
+\doxysection{C\+:/\+Users/\+Kunda/\+Documents/\+V\+U\+T/\+Cislicovka/\+Digitalni\+\_\+elektronika\+\_\+2/\+Digital-\/electronics-\/2/\+Labs/project/\+Parking\+Assistant\+\_\+\+H\+C-\/\+S\+R04/\+Parking\+Assistant\+\_\+\+H\+C-\/\+S\+R04/timer.h File Reference}
+\label{timer_8h}\index{C:/Users/Kunda/Documents/VUT/Cislicovka/Digitalni\_elektronika\_2/Digital-\/electronics-\/2/Labs/project/ParkingAssistant\_HC-\/SR04/ParkingAssistant\_HC-\/SR04/timer.h@{C:/Users/Kunda/Documents/VUT/Cislicovka/Digitalni\_elektronika\_2/Digital-\/electronics-\/2/Labs/project/ParkingAssistant\_HC-\/SR04/ParkingAssistant\_HC-\/SR04/timer.h}}
+
+
+Timer library for A\+V\+R-\/\+G\+CC.  
+
+
+{\ttfamily \#include $<$avr/io.\+h$>$}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\label{timer_8h_a3931670d9c52eaad10cd63a7c5252161}} 
+\#define {\bfseries T\+I\+M0\+\_\+stop}()~T\+C\+C\+R0B \&= $\sim$((1$<$$<$C\+S02) $\vert$ (1$<$$<$C\+S01) $\vert$ (1$<$$<$C\+S00));
+\item 
+\mbox{\label{timer_8h_ae6709b46981f94aef9b17854333ddb89}} 
+\#define {\bfseries T\+I\+M0\+\_\+overflow\+\_\+16us}()~T\+C\+C\+R0B \&= $\sim$((1$<$$<$C\+S02) $\vert$ (1$<$$<$C\+S01)); T\+C\+C\+R0B $\vert$= (1$<$$<$C\+S00);
+\item 
+\mbox{\label{timer_8h_ac1d3cc9f4c6066a4ce376c6734816f54}} 
+\#define {\bfseries T\+I\+M0\+\_\+overflow\+\_\+128us}()~T\+C\+C\+R0B \&= $\sim$((1$<$$<$C\+S02) $\vert$ (1$<$$<$C\+S00)); T\+C\+C\+R0B $\vert$= (1$<$$<$C\+S01);
+\item 
+\mbox{\label{timer_8h_a2e6609b39b857170c6732c0a2d6dcaf4}} 
+\#define {\bfseries T\+I\+M0\+\_\+overflow\+\_\+1ms}()~T\+C\+C\+R0B \&= $\sim$(1$<$$<$C\+S02); T\+C\+C\+R0B $\vert$= ((1$<$$<$C\+S01) $\vert$ (1$<$$<$C\+S00));
+\item 
+\mbox{\label{timer_8h_a3740a382f516fec7e29cc224eca9499f}} 
+\#define {\bfseries T\+I\+M0\+\_\+overflow\+\_\+4ms}()~T\+C\+C\+R0B \&= $\sim$((1$<$$<$C\+S01) $\vert$ (1$<$$<$C\+S00)); T\+C\+C\+R0B $\vert$= (1$<$$<$C\+S02);
+\item 
+\mbox{\label{timer_8h_ab648fecc1927d631144b1f28855e6e95}} 
+\#define {\bfseries T\+I\+M0\+\_\+overflow\+\_\+16ms}()~T\+C\+C\+R0B \&= $\sim$(1$<$$<$C\+S01); T\+C\+C\+R0B $\vert$= ((1$<$$<$C\+S02) $\vert$ (1$<$$<$C\+S00));
+\item 
+\mbox{\label{timer_8h_accfdefd3d2f8a982155fb5f60d5fdc35}} 
+\#define {\bfseries T\+I\+M0\+\_\+overflow\+\_\+interrupt\+\_\+enable}()~T\+I\+M\+S\+K0 $\vert$= (1$<$$<$T\+O\+I\+E0);
+\item 
+\mbox{\label{timer_8h_af226f4c7254d473adab5a0189349c525}} 
+\#define {\bfseries T\+I\+M0\+\_\+overflow\+\_\+interrupt\+\_\+disable}()~T\+I\+M\+S\+K0 \&= $\sim$(1$<$$<$T\+O\+I\+E0);
+\item 
+\mbox{\label{timer_8h_a85dff9eee7b0f0cc8a8a1d13793742a3}} 
+\#define {\bfseries T\+I\+M1\+\_\+stop}()~T\+C\+C\+R1B \&= $\sim$((1$<$$<$C\+S12) $\vert$ (1$<$$<$C\+S11) $\vert$ (1$<$$<$C\+S10));
+\item 
+\mbox{\label{timer_8h_a1193ba83b972f64ffc89d54dd9cb3d88}} 
+\#define {\bfseries T\+I\+M1\+\_\+overflow\+\_\+4ms}()~T\+C\+C\+R1B \&= $\sim$((1$<$$<$C\+S12) $\vert$ (1$<$$<$C\+S11)); T\+C\+C\+R1B $\vert$= (1$<$$<$C\+S10);
+\item 
+\mbox{\label{timer_8h_a35693ced5c9f4a0b669ac24ceca8e69b}} 
+\#define {\bfseries T\+I\+M1\+\_\+overflow\+\_\+33ms}()~T\+C\+C\+R1B \&= $\sim$((1$<$$<$C\+S12) $\vert$ (1$<$$<$C\+S10)); T\+C\+C\+R1B $\vert$= (1$<$$<$C\+S11);
+\item 
+\mbox{\label{timer_8h_a77e94f0031880610c8fdbc9a0257ef09}} 
+\#define {\bfseries T\+I\+M1\+\_\+overflow\+\_\+262ms}()~T\+C\+C\+R1B \&= $\sim$(1$<$$<$C\+S12); T\+C\+C\+R1B $\vert$= (1$<$$<$C\+S11) $\vert$ (1$<$$<$C\+S10);
+\item 
+\mbox{\label{timer_8h_a36d54e146587c408a2ce92dfcd2c52c3}} 
+\#define {\bfseries T\+I\+M1\+\_\+overflow\+\_\+1s}()~T\+C\+C\+R1B \&= $\sim$((1$<$$<$C\+S11) $\vert$ (1$<$$<$C\+S10)); T\+C\+C\+R1B $\vert$= (1$<$$<$C\+S12);
+\item 
+\mbox{\label{timer_8h_ac1fab4593fb6fa4dd8239431180343f3}} 
+\#define {\bfseries T\+I\+M1\+\_\+overflow\+\_\+4s}()~T\+C\+C\+R1B \&= $\sim$(1$<$$<$C\+S11); T\+C\+C\+R1B $\vert$= (1$<$$<$C\+S12) $\vert$ (1$<$$<$C\+S10);
+\item 
+\mbox{\label{timer_8h_ad43aa0fc3eb8c3bd21ef2d4546130f05}} 
+\#define {\bfseries T\+I\+M1\+\_\+overflow\+\_\+interrupt\+\_\+enable}()~T\+I\+M\+S\+K1 $\vert$= (1$<$$<$T\+O\+I\+E1);
+\item 
+\mbox{\label{timer_8h_a650fbf1dbe4572e36196a71982dbd061}} 
+\#define {\bfseries T\+I\+M1\+\_\+overflow\+\_\+interrupt\+\_\+disable}()~T\+I\+M\+S\+K1 \&= $\sim$(1$<$$<$T\+O\+I\+E1);
+\item 
+\mbox{\label{timer_8h_ab0e35246006d940cc30d68fcab39b0f0}} 
+\#define {\bfseries T\+I\+M2\+\_\+stop}()~T\+C\+C\+R2B \&= $\sim$((1$<$$<$C\+S22) $\vert$ (1$<$$<$C\+S21) $\vert$ (1$<$$<$C\+S20));
+\item 
+\mbox{\label{timer_8h_a1dbc055ae28bcf42c14477b5417f4a62}} 
+\#define {\bfseries T\+I\+M2\+\_\+overflow\+\_\+16us}()~T\+C\+C\+R2B \&= $\sim$((1$<$$<$C\+S22) $\vert$ (1$<$$<$C\+S21)); T\+C\+C\+R2B $\vert$= (1$<$$<$C\+S20);
+\item 
+\mbox{\label{timer_8h_a0dd93947c186790d6f90458584ca32f8}} 
+\#define {\bfseries T\+I\+M2\+\_\+overflow\+\_\+128us}()~T\+C\+C\+R2B \&= $\sim$((1$<$$<$C\+S22) $\vert$ (1$<$$<$C\+S20)); T\+C\+C\+R2B $\vert$= (1$<$$<$C\+S21);
+\item 
+\mbox{\label{timer_8h_a8eefa1fb0abb12949dc0726eab4fd772}} 
+\#define {\bfseries T\+I\+M2\+\_\+overflow\+\_\+512us}()~T\+C\+C\+R2B \&= $\sim$(1$<$$<$C\+S22); T\+C\+C\+R2B $\vert$= ((1$<$$<$C\+S21) $\vert$ (1$<$$<$C\+S20));
+\item 
+\mbox{\label{timer_8h_afd1a39397ce0e7057c80cd4ad1f239b0}} 
+\#define {\bfseries T\+I\+M2\+\_\+overflow\+\_\+1ms}()~T\+C\+C\+R2B \&= $\sim$((1$<$$<$C\+S21) $\vert$ (1$<$$<$C\+S20)); T\+C\+C\+R2B $\vert$= (1$<$$<$C\+S22);
+\item 
+\mbox{\label{timer_8h_a5c6f6b4ae481672749407eaa215ea341}} 
+\#define {\bfseries T\+I\+M2\+\_\+overflow\+\_\+2ms}()~T\+C\+C\+R2B \&= $\sim$(1$<$$<$C\+S21); T\+C\+C\+R2B $\vert$= ((1$<$$<$C\+S22) $\vert$ (1$<$C\+S20));
+\item 
+\mbox{\label{timer_8h_aaf431f1a3071e56a3795b9ab5e573efe}} 
+\#define {\bfseries T\+I\+M2\+\_\+overflow\+\_\+4ms}()~T\+C\+C\+R2B \&= $\sim$(1$<$$<$C\+S20); T\+C\+C\+R2B $\vert$= ((1$<$$<$C\+S22) $\vert$ (1$<$$<$C\+S21));
+\item 
+\mbox{\label{timer_8h_a7f42987d38a3dfc0a5dea84a966b4148}} 
+\#define {\bfseries T\+I\+M2\+\_\+overflow\+\_\+16ms}()~T\+C\+C\+R2B $\vert$= ((1$<$$<$C\+S22) $\vert$ (1$<$$<$C\+S21) $\vert$ (1$<$$<$C\+S20));
+\item 
+\mbox{\label{timer_8h_a4f94c9cc9debb3cb5a3df6912238064a}} 
+\#define {\bfseries T\+I\+M2\+\_\+overflow\+\_\+interrupt\+\_\+enable}()~T\+I\+M\+S\+K2 $\vert$= (1$<$$<$T\+O\+I\+E2);
+\item 
+\mbox{\label{timer_8h_a3f4c0301e27c932776f4cd555c158842}} 
+\#define {\bfseries T\+I\+M2\+\_\+overflow\+\_\+interrupt\+\_\+disable}()~T\+I\+M\+S\+K2 \&= $\sim$(1$<$$<$T\+O\+I\+E2);
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Timer library for A\+V\+R-\/\+G\+CC. 
+
+The library contains macros for controlling the timer modules. Every timer has some possibility to set overflow time (it depends on pre-\/scalers). For interrupt from timer overflow vector is necessary to enable it.
+
+\begin{DoxyNote}{Note}
+Based on Microchip Atmel A\+Tmega328P manual and no source file is needed for the library.
+\end{DoxyNote}
+\begin{DoxyCopyright}{Copyright}
+(c) 2019-\/2020 Tomas Fryza Dept. of Radio Electronics, Brno University of Technology, Czechia This work is licensed under the terms of the M\+IT license. 
+\end{DoxyCopyright}

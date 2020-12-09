@@ -1,0 +1,165 @@
+\doxysection{G\+P\+IO $<$gpio.\+h$>$}
+\label{group__gpio}\index{GPIO $<$gpio.h$>$@{GPIO $<$gpio.h$>$}}
+
+
+Library for basic pin operation as set pin as O\+U\+T/\+IN...  
+
+
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \textbf{ G\+P\+I\+O\+\_\+config\+\_\+output} (volatile uint8\+\_\+t $\ast$reg\+\_\+name, uint8\+\_\+t pin\+\_\+num)
+\begin{DoxyCompactList}\small\item\em Configure one output pin in Data Direction Register. \end{DoxyCompactList}\item 
+void \textbf{ G\+P\+I\+O\+\_\+config\+\_\+input\+\_\+nopull} (volatile uint8\+\_\+t $\ast$reg\+\_\+name, uint8\+\_\+t pin\+\_\+num)
+\begin{DoxyCompactList}\small\item\em Configure one input pin in Data Direction Register without pull-\/up resistor. \end{DoxyCompactList}\item 
+void \textbf{ G\+P\+I\+O\+\_\+config\+\_\+input\+\_\+pullup} (volatile uint8\+\_\+t $\ast$reg\+\_\+name, uint8\+\_\+t pin\+\_\+num)
+\begin{DoxyCompactList}\small\item\em Configure one input pin in Data Direction Register with pull-\/up resistor. \end{DoxyCompactList}\item 
+void \textbf{ G\+P\+I\+O\+\_\+write\+\_\+low} (volatile uint8\+\_\+t $\ast$reg\+\_\+name, uint8\+\_\+t pin\+\_\+num)
+\begin{DoxyCompactList}\small\item\em Set output to L\+OW. \end{DoxyCompactList}\item 
+void \textbf{ G\+P\+I\+O\+\_\+write\+\_\+high} (volatile uint8\+\_\+t $\ast$reg\+\_\+name, uint8\+\_\+t pin\+\_\+num)
+\begin{DoxyCompactList}\small\item\em Set output to H\+I\+GH. \end{DoxyCompactList}\item 
+void \textbf{ G\+P\+I\+O\+\_\+toggle} (volatile uint8\+\_\+t $\ast$reg\+\_\+name, uint8\+\_\+t pin\+\_\+num)
+\begin{DoxyCompactList}\small\item\em Change state of output (L\+OW to H\+I\+GH or H\+I\+GH to L\+OW). \end{DoxyCompactList}\item 
+uint8\+\_\+t \textbf{ G\+P\+I\+O\+\_\+read} (volatile uint8\+\_\+t $\ast$reg\+\_\+name, uint8\+\_\+t pin\+\_\+num)
+\begin{DoxyCompactList}\small\item\em Read value of one input pin. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Library for basic pin operation as set pin as O\+U\+T/\+IN... 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <gpio.h>} }
+\end{DoxyCode}
+
+
+The library contains functions for controlling A\+V\+Rs\textquotesingle{} gpio pin(s).
+
+\begin{DoxyNote}{Note}
+Based on A\+VR Libc Reference Manual. Tested on A\+Tmega328P (Arduino Uno), 16 M\+Hz, A\+VR 8-\/bit Toolchain 3.\+6.\+2.
+\end{DoxyNote}
+\begin{DoxyCopyright}{Copyright}
+(c) 2019-\/2020 Tomas Fryza Dept. of Radio Electronics, Brno University of Technology, Czechia This work is licensed under the terms of the M\+IT license. 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\label{group__gpio_ga939ef6c419d27c29f0b4bf23d4cbab1b}} 
+\index{GPIO $<$gpio.h$>$@{GPIO $<$gpio.h$>$}!GPIO\_config\_input\_nopull@{GPIO\_config\_input\_nopull}}
+\index{GPIO\_config\_input\_nopull@{GPIO\_config\_input\_nopull}!GPIO $<$gpio.h$>$@{GPIO $<$gpio.h$>$}}
+\doxysubsubsection{GPIO\_config\_input\_nopull()}
+{\footnotesize\ttfamily void G\+P\+I\+O\+\_\+config\+\_\+input\+\_\+nopull (\begin{DoxyParamCaption}\item[{volatile uint8\+\_\+t $\ast$}]{reg\+\_\+name,  }\item[{uint8\+\_\+t}]{pin\+\_\+num }\end{DoxyParamCaption})}
+
+
+
+Configure one input pin in Data Direction Register without pull-\/up resistor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg\+\_\+name} & -\/ Address of Data Direction Register, such as \&D\+D\+RA, \&D\+D\+RB, ... \\
+\hline
+{\em pin\+\_\+num} & -\/ Pin designation in the interval 0 to 7 \\
+\hline
+\end{DoxyParams}
+\mbox{\label{group__gpio_gaf973893e5f4c00cd24ce70eb57a5310a}} 
+\index{GPIO $<$gpio.h$>$@{GPIO $<$gpio.h$>$}!GPIO\_config\_input\_pullup@{GPIO\_config\_input\_pullup}}
+\index{GPIO\_config\_input\_pullup@{GPIO\_config\_input\_pullup}!GPIO $<$gpio.h$>$@{GPIO $<$gpio.h$>$}}
+\doxysubsubsection{GPIO\_config\_input\_pullup()}
+{\footnotesize\ttfamily void G\+P\+I\+O\+\_\+config\+\_\+input\+\_\+pullup (\begin{DoxyParamCaption}\item[{volatile uint8\+\_\+t $\ast$}]{reg\+\_\+name,  }\item[{uint8\+\_\+t}]{pin\+\_\+num }\end{DoxyParamCaption})}
+
+
+
+Configure one input pin in Data Direction Register with pull-\/up resistor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg\+\_\+name} & -\/ Address of Data Direction Register, such as \&D\+D\+RA, \&D\+D\+RB, ... \\
+\hline
+{\em pin\+\_\+num} & -\/ Pin designation in the interval 0 to 7 \\
+\hline
+\end{DoxyParams}
+\mbox{\label{group__gpio_gaea5357ef2716c0bb9889b092e5877589}} 
+\index{GPIO $<$gpio.h$>$@{GPIO $<$gpio.h$>$}!GPIO\_config\_output@{GPIO\_config\_output}}
+\index{GPIO\_config\_output@{GPIO\_config\_output}!GPIO $<$gpio.h$>$@{GPIO $<$gpio.h$>$}}
+\doxysubsubsection{GPIO\_config\_output()}
+{\footnotesize\ttfamily void G\+P\+I\+O\+\_\+config\+\_\+output (\begin{DoxyParamCaption}\item[{volatile uint8\+\_\+t $\ast$}]{reg\+\_\+name,  }\item[{uint8\+\_\+t}]{pin\+\_\+num }\end{DoxyParamCaption})}
+
+
+
+Configure one output pin in Data Direction Register. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg\+\_\+name} & -\/ Address of Data Direction Register, such as \&D\+D\+RA, \&D\+D\+RB, ... \\
+\hline
+{\em pin\+\_\+num} & -\/ Pin designation in the interval 0 to 7 \\
+\hline
+\end{DoxyParams}
+\mbox{\label{group__gpio_gacfaad70b52775f53bd2d9e29c00ec85d}} 
+\index{GPIO $<$gpio.h$>$@{GPIO $<$gpio.h$>$}!GPIO\_read@{GPIO\_read}}
+\index{GPIO\_read@{GPIO\_read}!GPIO $<$gpio.h$>$@{GPIO $<$gpio.h$>$}}
+\doxysubsubsection{GPIO\_read()}
+{\footnotesize\ttfamily uint8\+\_\+t G\+P\+I\+O\+\_\+read (\begin{DoxyParamCaption}\item[{volatile uint8\+\_\+t $\ast$}]{reg\+\_\+name,  }\item[{uint8\+\_\+t}]{pin\+\_\+num }\end{DoxyParamCaption})}
+
+
+
+Read value of one input pin. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg\+\_\+name} & -\/ Address of Data Direction Register, such as \&D\+D\+RA, \&D\+D\+RB, ... \\
+\hline
+{\em pin\+\_\+num} & -\/ Pin designation in the interval 0 to 7 \\
+\hline
+\end{DoxyParams}
+\mbox{\label{group__gpio_ga5fae8d81d3a1deefeb6d5344561505f6}} 
+\index{GPIO $<$gpio.h$>$@{GPIO $<$gpio.h$>$}!GPIO\_toggle@{GPIO\_toggle}}
+\index{GPIO\_toggle@{GPIO\_toggle}!GPIO $<$gpio.h$>$@{GPIO $<$gpio.h$>$}}
+\doxysubsubsection{GPIO\_toggle()}
+{\footnotesize\ttfamily void G\+P\+I\+O\+\_\+toggle (\begin{DoxyParamCaption}\item[{volatile uint8\+\_\+t $\ast$}]{reg\+\_\+name,  }\item[{uint8\+\_\+t}]{pin\+\_\+num }\end{DoxyParamCaption})}
+
+
+
+Change state of output (L\+OW to H\+I\+GH or H\+I\+GH to L\+OW). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg\+\_\+name} & -\/ Address of Data Direction Register, such as \&D\+D\+RA, \&D\+D\+RB, ... \\
+\hline
+{\em pin\+\_\+num} & -\/ Pin designation in the interval 0 to 7 \\
+\hline
+\end{DoxyParams}
+\mbox{\label{group__gpio_ga02ac59d8305bc637a91eae64966e7ab3}} 
+\index{GPIO $<$gpio.h$>$@{GPIO $<$gpio.h$>$}!GPIO\_write\_high@{GPIO\_write\_high}}
+\index{GPIO\_write\_high@{GPIO\_write\_high}!GPIO $<$gpio.h$>$@{GPIO $<$gpio.h$>$}}
+\doxysubsubsection{GPIO\_write\_high()}
+{\footnotesize\ttfamily void G\+P\+I\+O\+\_\+write\+\_\+high (\begin{DoxyParamCaption}\item[{volatile uint8\+\_\+t $\ast$}]{reg\+\_\+name,  }\item[{uint8\+\_\+t}]{pin\+\_\+num }\end{DoxyParamCaption})}
+
+
+
+Set output to H\+I\+GH. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg\+\_\+name} & -\/ Address of Data Direction Register, such as \&D\+D\+RA, \&D\+D\+RB, ... \\
+\hline
+{\em pin\+\_\+num} & -\/ Pin designation in the interval 0 to 7 \\
+\hline
+\end{DoxyParams}
+\mbox{\label{group__gpio_gaa52123f00ace3e1f172d3daa7089a8f5}} 
+\index{GPIO $<$gpio.h$>$@{GPIO $<$gpio.h$>$}!GPIO\_write\_low@{GPIO\_write\_low}}
+\index{GPIO\_write\_low@{GPIO\_write\_low}!GPIO $<$gpio.h$>$@{GPIO $<$gpio.h$>$}}
+\doxysubsubsection{GPIO\_write\_low()}
+{\footnotesize\ttfamily void G\+P\+I\+O\+\_\+write\+\_\+low (\begin{DoxyParamCaption}\item[{volatile uint8\+\_\+t $\ast$}]{reg\+\_\+name,  }\item[{uint8\+\_\+t}]{pin\+\_\+num }\end{DoxyParamCaption})}
+
+
+
+Set output to L\+OW. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg\+\_\+name} & -\/ Address of Data Direction Register, such as \&D\+D\+RA, \&D\+D\+RB, ... \\
+\hline
+{\em pin\+\_\+num} & -\/ Pin designation in the interval 0 to 7 \\
+\hline
+\end{DoxyParams}

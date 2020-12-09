@@ -38,6 +38,7 @@ volatile float distanceRear = 0;
 volatile float distance = 0;
 uint8_t mux = 1;
 volatile bool help = true;	// help variable for Echo time measuring
+float wdt = 0;				// "watchdog timer" solving no Echo pulse
 
 /*          Declaration of displaying function           */
 int displayValues(float distanceRear, float distanceFront);
@@ -95,9 +96,29 @@ int main(void)
 	
     while (1) 
     {
+		
+		/*   Timer solving no Echo pulse - obstacle is too far   */
+		if (trigEnable == 0)
+		{
+			wdt++;
+			_delay_ms(1);
+			if(wdt > 200)
+			{
+				averaging = 0;
+	 			trigEnable = 1;
+	 			help = true;
+				mux++;
+				wdt = 0;			
+			}
+		}else
+		{
+			wdt = 0;
+		}
+		
+		/*   MULTIPLEXOR   */
 		if ((mux == 1) & (trigEnable == 1))
 		{	
- 			if (averaging == 5)
+ 			if (averaging >= 5)
  			{
 				distanceFront = distanceFront/averaging;
 	 			averaging = 0;
@@ -116,11 +137,11 @@ int main(void)
 		
 		if ((mux == 2) & (trigEnable == 1))
 		{	
-			if (averaging == 5)
+			if (averaging >= 5)
 			{
 				distanceRear = distanceRear/averaging;
-				averaging = 0;	
- 				mux++;		
+				averaging = 0;
+ 				mux++;
 			} else
 			{
 				trigEnable = 0;
@@ -133,13 +154,13 @@ int main(void)
 			}
 		}
 		
-		if (mux == 3)
+		if (mux >= 3)
 		{
 			beepTiming = displayValues(distanceRear, distanceFront);	// function that display values on LCD, UART, LEDs
 			distanceFront = 0;												  // and returns value for beep timer
 			distanceRear = 0;
 			mux = 1;
-		}		
+		}
     }
 }
 
@@ -237,21 +258,41 @@ int displayValues(float distanceRear, float distanceFront){
 
 
 	// displaying values on display 
-
+	
 	sprintf(uartString,"Front: %0.1lf  ||  Rear: %0.1lf \r\n",distanceFront, distanceRear);
 	uart_puts(uartString);
 	
-	sprintf(dispString,"%0.1f",distanceFront);
- 	lcd_gotoxy(7, 0);
- 	lcd_puts("       ");
-	lcd_gotoxy(7, 0);
-	lcd_puts(dispString);
-	
-	sprintf(dispString,"%0.1f",distanceRear);
-	lcd_gotoxy(7, 1);
-	lcd_puts("       ");
-	lcd_gotoxy(7, 1);
-	lcd_puts(dispString);
+	if (distanceFront > 200)
+	{
+	 	lcd_gotoxy(7, 0);
+	 	lcd_puts("       ");
+	 	lcd_gotoxy(7, 0);
+	 	lcd_puts(" > 200");
+	}else
+	{
+		sprintf(dispString,"%0.1f",distanceFront);
+	 	lcd_gotoxy(7, 0);
+	 	lcd_puts("       ");
+	 	lcd_gotoxy(7, 0);
+	 	lcd_puts(dispString);
+	}
+
+	if (distanceRear > 200)
+	{
+	 	lcd_gotoxy(7, 1);
+	 	lcd_puts("       ");
+	 	lcd_gotoxy(7, 1);
+	 	lcd_puts(" > 200");
+	} 
+	else
+	{
+		sprintf(dispString,"%0.1f",distanceRear);
+		lcd_gotoxy(7, 1);
+		lcd_puts("       ");
+		lcd_gotoxy(7, 1);
+		lcd_puts(dispString);
+	}
+
 	
 	
 	//displaying the distance of the front sensor on bar graph

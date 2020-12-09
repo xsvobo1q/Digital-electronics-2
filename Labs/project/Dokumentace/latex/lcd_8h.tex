@@ -1,0 +1,187 @@
+\doxysection{C\+:/\+Users/\+Kunda/\+Documents/\+V\+U\+T/\+Cislicovka/\+Digitalni\+\_\+elektronika\+\_\+2/\+Digital-\/electronics-\/2/\+Labs/project/\+Parking\+Assistant\+\_\+\+H\+C-\/\+S\+R04/\+Parking\+Assistant\+\_\+\+H\+C-\/\+S\+R04/lcd.h File Reference}
+\label{lcd_8h}\index{C:/Users/Kunda/Documents/VUT/Cislicovka/Digitalni\_elektronika\_2/Digital-\/electronics-\/2/Labs/project/ParkingAssistant\_HC-\/SR04/ParkingAssistant\_HC-\/SR04/lcd.h@{C:/Users/Kunda/Documents/VUT/Cislicovka/Digitalni\_elektronika\_2/Digital-\/electronics-\/2/Labs/project/ParkingAssistant\_HC-\/SR04/ParkingAssistant\_HC-\/SR04/lcd.h}}
+
+
+Basic routines for L\+CD with driver H\+D44780U.  
+
+
+{\ttfamily \#include $<$inttypes.\+h$>$}\newline
+{\ttfamily \#include $<$avr/pgmspace.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}lcd\+\_\+definitions.\+h\char`\"{}}\newline
+\doxysubsection*{Macros}
+\begin{Indent}\textbf{ Definition for L\+CD controller type}\par
+{\em Use 0 for H\+D44780 controller, change to 1 for displays with K\+S0073 controller. }\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ L\+C\+D\+\_\+\+C\+O\+N\+T\+R\+O\+L\+L\+E\+R\+\_\+\+K\+S0073}~0
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Definitions for Display Size}\par
+{\em Change these definitions to adapt setting to your display
+
+These definitions can be defined in a separate include file {\bfseries{\doxyref{lcd\+\_\+definitions.\+h}{p.}{lcd__definitions_8h}}} instead modifying this file by adding -\/D\+\_\+\+L\+C\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+I\+O\+N\+S\+\_\+\+F\+I\+LE to the C\+D\+E\+FS section in the Makefile. All definitions added to the file \doxyref{lcd\+\_\+definitions.\+h}{p.}{lcd__definitions_8h} will override the default definitions from \doxyref{lcd.\+h}{p.}{lcd_8h} }\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ L\+C\+D\+\_\+\+L\+I\+N\+ES}~2
+\item 
+\#define \textbf{ L\+C\+D\+\_\+\+D\+I\+S\+P\+\_\+\+L\+E\+N\+G\+TH}~16
+\item 
+\#define \textbf{ L\+C\+D\+\_\+\+L\+I\+N\+E\+\_\+\+L\+E\+N\+G\+TH}~0x40
+\item 
+\#define \textbf{ L\+C\+D\+\_\+\+S\+T\+A\+R\+T\+\_\+\+L\+I\+N\+E1}~0x00
+\item 
+\#define \textbf{ L\+C\+D\+\_\+\+S\+T\+A\+R\+T\+\_\+\+L\+I\+N\+E2}~0x40
+\item 
+\#define \textbf{ L\+C\+D\+\_\+\+S\+T\+A\+R\+T\+\_\+\+L\+I\+N\+E3}~0x14
+\item 
+\#define \textbf{ L\+C\+D\+\_\+\+S\+T\+A\+R\+T\+\_\+\+L\+I\+N\+E4}~0x54
+\item 
+\#define \textbf{ L\+C\+D\+\_\+\+W\+R\+A\+P\+\_\+\+L\+I\+N\+ES}~0
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Definitions for 4-\/bit IO mode}\par
+{\em The four L\+CD data lines and the three control lines RS, RW, E can be on the same port or on different ports. Change L\+C\+D\+\_\+\+R\+S\+\_\+\+P\+O\+RT, L\+C\+D\+\_\+\+R\+W\+\_\+\+P\+O\+RT, L\+C\+D\+\_\+\+E\+\_\+\+P\+O\+RT if you want the control lines on different ports.
+
+Normally the four data lines should be mapped to bit 0..3 on one port, but it is possible to connect these data lines in different order or even on different ports by adapting the L\+C\+D\+\_\+\+D\+A\+T\+Ax\+\_\+\+P\+O\+RT and L\+C\+D\+\_\+\+D\+A\+T\+Ax\+\_\+\+P\+IN definitions.
+
+Adjust these definitions to your target.~\newline
+These definitions can be defined in a separate include file {\bfseries{\doxyref{lcd\+\_\+definitions.\+h}{p.}{lcd__definitions_8h}}} instead modifying this file by adding {\bfseries{-\/D\+\_\+\+L\+C\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+I\+O\+N\+S\+\_\+\+F\+I\+LE}} to the {\bfseries{C\+D\+E\+FS}} section in the Makefile. All definitions added to the file \doxyref{lcd\+\_\+definitions.\+h}{p.}{lcd__definitions_8h} will override the default definitions from \doxyref{lcd.\+h}{p.}{lcd_8h} }\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ L\+C\+D\+\_\+\+I\+O\+\_\+\+M\+O\+DE}~1
+\item 
+\#define \textbf{ L\+C\+D\+\_\+\+D\+A\+T\+A0\+\_\+\+P\+O\+RT}~L\+C\+D\+\_\+\+P\+O\+RT
+\item 
+\#define \textbf{ L\+C\+D\+\_\+\+D\+A\+T\+A1\+\_\+\+P\+O\+RT}~L\+C\+D\+\_\+\+P\+O\+RT
+\item 
+\#define \textbf{ L\+C\+D\+\_\+\+D\+A\+T\+A2\+\_\+\+P\+O\+RT}~L\+C\+D\+\_\+\+P\+O\+RT
+\item 
+\#define \textbf{ L\+C\+D\+\_\+\+D\+A\+T\+A3\+\_\+\+P\+O\+RT}~L\+C\+D\+\_\+\+P\+O\+RT
+\item 
+\#define \textbf{ L\+C\+D\+\_\+\+R\+W\+\_\+\+P\+O\+RT}~L\+C\+D\+\_\+\+P\+O\+RT
+\item 
+\#define \textbf{ L\+C\+D\+\_\+\+R\+W\+\_\+\+P\+IN}~5
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Definitions of delays}\par
+{\em Used to calculate delay timers. Adapt the F\+\_\+\+C\+PU define in the Makefile to the clock frequency in Hz of your target
+
+These delay times can be adjusted, if some displays require different delays.~\newline
+These definitions can be defined in a separate include file {\bfseries{\doxyref{lcd\+\_\+definitions.\+h}{p.}{lcd__definitions_8h}}} instead modifying this file by adding {\bfseries{-\/D\+\_\+\+L\+C\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+I\+O\+N\+S\+\_\+\+F\+I\+LE}} to the {\bfseries{C\+D\+E\+FS}} section in the Makefile. All definitions added to the file \doxyref{lcd\+\_\+definitions.\+h}{p.}{lcd__definitions_8h} will override the default definitions from \doxyref{lcd.\+h}{p.}{lcd_8h} }\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ L\+C\+D\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+B\+O\+O\+T\+UP}~16000
+\item 
+\#define \textbf{ L\+C\+D\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+I\+N\+IT}~5000
+\item 
+\#define \textbf{ L\+C\+D\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+I\+N\+I\+T\+\_\+\+R\+EP}~64
+\item 
+\#define \textbf{ L\+C\+D\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+I\+N\+I\+T\+\_\+4\+B\+IT}~64
+\item 
+\#define \textbf{ L\+C\+D\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+B\+U\+S\+Y\+\_\+\+F\+L\+AG}~4
+\item 
+\#define \textbf{ L\+C\+D\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+E\+N\+A\+B\+L\+E\+\_\+\+P\+U\+L\+SE}~1
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Definitions for L\+CD command instructions}\par
+{\em The constants define the various L\+CD controller instructions which can be passed to the function \doxyref{lcd\+\_\+command()}{p.}{group__pfleury__lcd_gaea9d14f02df06f948cb5a56776980826}, see H\+D44780 data sheet for a complete description. }\begin{DoxyCompactItemize}
+\item 
+\#define {\bfseries L\+C\+D\+\_\+\+C\+LR}~0 /$\ast$ D\+B0\+: clear display                  $\ast$/
+\item 
+\#define {\bfseries L\+C\+D\+\_\+\+H\+O\+ME}~1 /$\ast$ D\+B1\+: return to home position        $\ast$/
+\item 
+\#define {\bfseries L\+C\+D\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+M\+O\+DE}~2 /$\ast$ D\+B2\+: set entry mode                 $\ast$/
+\item 
+\#define {\bfseries L\+C\+D\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+I\+NC}~1 /$\ast$   D\+B1\+: 1=increment, 0=decrement     $\ast$/
+\item 
+\#define {\bfseries L\+C\+D\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+S\+H\+I\+FT}~0 /$\ast$   D\+B2\+: 1=display shift on           $\ast$/
+\item 
+\#define {\bfseries L\+C\+D\+\_\+\+ON}~3 /$\ast$ D\+B3\+: turn lcd/cursor on             $\ast$/
+\item 
+\#define {\bfseries L\+C\+D\+\_\+\+O\+N\+\_\+\+D\+I\+S\+P\+L\+AY}~2 /$\ast$   D\+B2\+: turn display on              $\ast$/
+\item 
+\#define {\bfseries L\+C\+D\+\_\+\+O\+N\+\_\+\+C\+U\+R\+S\+OR}~1 /$\ast$   D\+B1\+: turn cursor on               $\ast$/
+\item 
+\#define {\bfseries L\+C\+D\+\_\+\+O\+N\+\_\+\+B\+L\+I\+NK}~0 /$\ast$     D\+B0\+: blinking cursor ?          $\ast$/
+\item 
+\#define {\bfseries L\+C\+D\+\_\+\+M\+O\+VE}~4 /$\ast$ D\+B4\+: move cursor/display            $\ast$/
+\item 
+\#define {\bfseries L\+C\+D\+\_\+\+M\+O\+V\+E\+\_\+\+D\+I\+SP}~3 /$\ast$   D\+B3\+: move display (0-\/$>$ cursor) ?  $\ast$/
+\item 
+\#define {\bfseries L\+C\+D\+\_\+\+M\+O\+V\+E\+\_\+\+R\+I\+G\+HT}~2 /$\ast$   D\+B2\+: move right (0-\/$>$ left) ?      $\ast$/
+\item 
+\#define {\bfseries L\+C\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON}~5 /$\ast$ D\+B5\+: function set                   $\ast$/
+\item 
+\#define {\bfseries L\+C\+D\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+8\+B\+IT}~4 /$\ast$   D\+B4\+: set 8B\+IT mode (0-\/$>$4B\+IT mode) $\ast$/
+\item 
+\#define {\bfseries L\+C\+D\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+2\+L\+I\+N\+ES}~3 /$\ast$   D\+B3\+: two lines (0-\/$>$one line)      $\ast$/
+\item 
+\#define {\bfseries L\+C\+D\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+10\+D\+O\+TS}~2 /$\ast$   D\+B2\+: 5x10 font (0-\/$>$5x7 font)      $\ast$/
+\item 
+\#define {\bfseries L\+C\+D\+\_\+\+C\+G\+R\+AM}~6 /$\ast$ D\+B6\+: set CG R\+AM address             $\ast$/
+\item 
+\#define {\bfseries L\+C\+D\+\_\+\+D\+D\+R\+AM}~7 /$\ast$ D\+B7\+: set DD R\+AM address             $\ast$/
+\item 
+\#define {\bfseries L\+C\+D\+\_\+\+B\+U\+SY}~7 /$\ast$ D\+B7\+: L\+CD is busy                    $\ast$/
+\item 
+\#define {\bfseries L\+C\+D\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+D\+EC}~0x04 /$\ast$ display shift off, dec cursor move dir $\ast$/
+\item 
+\#define {\bfseries L\+C\+D\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+D\+E\+C\+\_\+\+S\+H\+I\+FT}~0x05 /$\ast$ display shift on,  dec cursor move dir $\ast$/
+\item 
+\#define {\bfseries L\+C\+D\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+I\+N\+C\+\_\+}~0x06 /$\ast$ display shift off, inc cursor move dir $\ast$/
+\item 
+\#define {\bfseries L\+C\+D\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+I\+N\+C\+\_\+\+S\+H\+I\+FT}~0x07 /$\ast$ display shift on,  inc cursor move dir $\ast$/
+\item 
+\#define {\bfseries L\+C\+D\+\_\+\+D\+I\+S\+P\+\_\+\+O\+FF}~0x08 /$\ast$ display off                            $\ast$/
+\item 
+\#define {\bfseries L\+C\+D\+\_\+\+D\+I\+S\+P\+\_\+\+ON}~0x0C /$\ast$ display on, cursor off                 $\ast$/
+\item 
+\#define {\bfseries L\+C\+D\+\_\+\+D\+I\+S\+P\+\_\+\+O\+N\+\_\+\+B\+L\+I\+NK}~0x0D /$\ast$ display on, cursor off, blink char     $\ast$/
+\item 
+\#define {\bfseries L\+C\+D\+\_\+\+D\+I\+S\+P\+\_\+\+O\+N\+\_\+\+C\+U\+R\+S\+OR}~0x0E /$\ast$ display on, cursor on                  $\ast$/
+\item 
+\#define {\bfseries L\+C\+D\+\_\+\+D\+I\+S\+P\+\_\+\+O\+N\+\_\+\+C\+U\+R\+S\+O\+R\+\_\+\+B\+L\+I\+NK}~0x0F /$\ast$ display on, cursor on, blink char      $\ast$/
+\item 
+\#define {\bfseries L\+C\+D\+\_\+\+M\+O\+V\+E\+\_\+\+C\+U\+R\+S\+O\+R\+\_\+\+L\+E\+FT}~0x10 /$\ast$ move cursor left  (decrement)          $\ast$/
+\item 
+\#define {\bfseries L\+C\+D\+\_\+\+M\+O\+V\+E\+\_\+\+C\+U\+R\+S\+O\+R\+\_\+\+R\+I\+G\+HT}~0x14 /$\ast$ move cursor right (increment)          $\ast$/
+\item 
+\#define {\bfseries L\+C\+D\+\_\+\+M\+O\+V\+E\+\_\+\+D\+I\+S\+P\+\_\+\+L\+E\+FT}~0x18 /$\ast$ shift display left                     $\ast$/
+\item 
+\#define {\bfseries L\+C\+D\+\_\+\+M\+O\+V\+E\+\_\+\+D\+I\+S\+P\+\_\+\+R\+I\+G\+HT}~0x1C /$\ast$ shift display right                    $\ast$/
+\item 
+\#define {\bfseries L\+C\+D\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+4\+B\+I\+T\+\_\+1\+L\+I\+NE}~0x20 /$\ast$ 4-\/bit interface, single line, 5x7 dots $\ast$/
+\item 
+\#define {\bfseries L\+C\+D\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+4\+B\+I\+T\+\_\+2\+L\+I\+N\+ES}~0x28 /$\ast$ 4-\/bit interface, dual line,   5x7 dots $\ast$/
+\item 
+\#define {\bfseries L\+C\+D\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+8\+B\+I\+T\+\_\+1\+L\+I\+NE}~0x30 /$\ast$ 8-\/bit interface, single line, 5x7 dots $\ast$/
+\item 
+\#define {\bfseries L\+C\+D\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+8\+B\+I\+T\+\_\+2\+L\+I\+N\+ES}~0x38 /$\ast$ 8-\/bit interface, dual line,   5x7 dots $\ast$/
+\item 
+\#define {\bfseries L\+C\+D\+\_\+\+M\+O\+D\+E\+\_\+\+D\+E\+F\+A\+U\+LT}~((1 $<$$<$ L\+C\+D\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+M\+O\+DE) $\vert$ (1 $<$$<$ L\+C\+D\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+I\+NC) )
+\end{DoxyCompactItemize}
+\end{Indent}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ lcd\+\_\+puts\+\_\+P}(\+\_\+\+\_\+s)~\textbf{ lcd\+\_\+puts\+\_\+p}(P\+S\+TR(\+\_\+\+\_\+s))
+\begin{DoxyCompactList}\small\item\em macros for automatically storing string constant in program memory \end{DoxyCompactList}\item 
+void \textbf{ lcd\+\_\+init} (uint8\+\_\+t disp\+Attr)
+\begin{DoxyCompactList}\small\item\em Initialize display and select type of cursor. \end{DoxyCompactList}\item 
+void \textbf{ lcd\+\_\+clrscr} (void)
+\begin{DoxyCompactList}\small\item\em Clear display and set cursor to home position. \end{DoxyCompactList}\item 
+void \textbf{ lcd\+\_\+home} (void)
+\begin{DoxyCompactList}\small\item\em Set cursor to home position. \end{DoxyCompactList}\item 
+void \textbf{ lcd\+\_\+gotoxy} (uint8\+\_\+t x, uint8\+\_\+t y)
+\begin{DoxyCompactList}\small\item\em Set cursor to specified position. \end{DoxyCompactList}\item 
+void \textbf{ lcd\+\_\+putc} (char c)
+\begin{DoxyCompactList}\small\item\em Display character at current cursor position. \end{DoxyCompactList}\item 
+void \textbf{ lcd\+\_\+puts} (const char $\ast$s)
+\begin{DoxyCompactList}\small\item\em Display string without auto linefeed. \end{DoxyCompactList}\item 
+void \textbf{ lcd\+\_\+puts\+\_\+p} (const char $\ast$progmem\+\_\+s)
+\begin{DoxyCompactList}\small\item\em Display string from program memory without auto linefeed. \end{DoxyCompactList}\item 
+void \textbf{ lcd\+\_\+command} (uint8\+\_\+t cmd)
+\begin{DoxyCompactList}\small\item\em Send L\+CD controller instruction command. \end{DoxyCompactList}\item 
+void \textbf{ lcd\+\_\+data} (uint8\+\_\+t data)
+\begin{DoxyCompactList}\small\item\em Send data byte to L\+CD controller. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Basic routines for L\+CD with driver H\+D44780U. 
+

@@ -1,0 +1,30 @@
+\doxysection{C\+:/\+Users/\+Kunda/\+Documents/\+V\+U\+T/\+Cislicovka/\+Digitalni\+\_\+elektronika\+\_\+2/\+Digital-\/electronics-\/2/\+Labs/project/\+Parking\+Assistant\+\_\+\+H\+C-\/\+S\+R04/\+Parking\+Assistant\+\_\+\+H\+C-\/\+S\+R04/gpio.h File Reference}
+\label{gpio_8h}\index{C:/Users/Kunda/Documents/VUT/Cislicovka/Digitalni\_elektronika\_2/Digital-\/electronics-\/2/Labs/project/ParkingAssistant\_HC-\/SR04/ParkingAssistant\_HC-\/SR04/gpio.h@{C:/Users/Kunda/Documents/VUT/Cislicovka/Digitalni\_elektronika\_2/Digital-\/electronics-\/2/Labs/project/ParkingAssistant\_HC-\/SR04/ParkingAssistant\_HC-\/SR04/gpio.h}}
+
+
+Library for basic pin operation.  
+
+
+{\ttfamily \#include $<$avr/io.\+h$>$}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \textbf{ G\+P\+I\+O\+\_\+config\+\_\+output} (volatile uint8\+\_\+t $\ast$reg\+\_\+name, uint8\+\_\+t pin\+\_\+num)
+\begin{DoxyCompactList}\small\item\em Configure one output pin in Data Direction Register. \end{DoxyCompactList}\item 
+void \textbf{ G\+P\+I\+O\+\_\+config\+\_\+input\+\_\+nopull} (volatile uint8\+\_\+t $\ast$reg\+\_\+name, uint8\+\_\+t pin\+\_\+num)
+\begin{DoxyCompactList}\small\item\em Configure one input pin in Data Direction Register without pull-\/up resistor. \end{DoxyCompactList}\item 
+void \textbf{ G\+P\+I\+O\+\_\+config\+\_\+input\+\_\+pullup} (volatile uint8\+\_\+t $\ast$reg\+\_\+name, uint8\+\_\+t pin\+\_\+num)
+\begin{DoxyCompactList}\small\item\em Configure one input pin in Data Direction Register with pull-\/up resistor. \end{DoxyCompactList}\item 
+void \textbf{ G\+P\+I\+O\+\_\+write\+\_\+low} (volatile uint8\+\_\+t $\ast$reg\+\_\+name, uint8\+\_\+t pin\+\_\+num)
+\begin{DoxyCompactList}\small\item\em Set output to L\+OW. \end{DoxyCompactList}\item 
+void \textbf{ G\+P\+I\+O\+\_\+write\+\_\+high} (volatile uint8\+\_\+t $\ast$reg\+\_\+name, uint8\+\_\+t pin\+\_\+num)
+\begin{DoxyCompactList}\small\item\em Set output to H\+I\+GH. \end{DoxyCompactList}\item 
+void \textbf{ G\+P\+I\+O\+\_\+toggle} (volatile uint8\+\_\+t $\ast$reg\+\_\+name, uint8\+\_\+t pin\+\_\+num)
+\begin{DoxyCompactList}\small\item\em Change state of output (L\+OW to H\+I\+GH or H\+I\+GH to L\+OW). \end{DoxyCompactList}\item 
+uint8\+\_\+t \textbf{ G\+P\+I\+O\+\_\+read} (volatile uint8\+\_\+t $\ast$reg\+\_\+name, uint8\+\_\+t pin\+\_\+num)
+\begin{DoxyCompactList}\small\item\em Read value of one input pin. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Library for basic pin operation. 
+

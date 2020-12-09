@@ -1,0 +1,104 @@
+\doxysection{Bargraphs controller $<$serial\+\_\+controller\+\_\+for\+\_\+diodes.\+h$>$}
+\label{group__our___l_e_d}\index{Bargraphs controller $<$serial\_controller\_for\_diodes.h$>$@{Bargraphs controller $<$serial\_controller\_for\_diodes.h$>$}}
+
+
+Basic routines for interfacing two bargraphs.  
+
+
+\doxysubsection*{Connection of hardware.}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\label{group__our___l_e_d_ga32217cbbebe02c61f8ea8c072c6ee594}} 
+\#define {\bfseries D\+A\+T\+A\+\_\+\+I\+N\+P\+U\+T\+\_\+\+F\+R\+O\+NT}~P\+C0
+\item 
+\mbox{\label{group__our___l_e_d_gaeda5c61ba14742f0515d83bc508e3346}} 
+\#define {\bfseries D\+A\+T\+A\+\_\+\+I\+N\+P\+U\+T\+\_\+\+R\+E\+AR}~P\+C3
+\item 
+\mbox{\label{group__our___l_e_d_ga8353790cfc4bae17728be4f2eff9cba7}} 
+\#define {\bfseries S\+E\+G\+M\+E\+N\+T\+\_\+\+L\+A\+T\+C\+H\+\_\+\+B\+A\+R\+\_\+1}~P\+C1
+\item 
+\mbox{\label{group__our___l_e_d_gad4e7aa101a125062c1d73c16a4771b81}} 
+\#define {\bfseries S\+E\+G\+M\+E\+N\+T\+\_\+\+L\+A\+T\+C\+H\+\_\+\+B\+A\+R\+\_\+2}~P\+C4
+\item 
+\mbox{\label{group__our___l_e_d_ga6406c9d48869a0e3863971db22c25be3}} 
+\#define {\bfseries S\+E\+G\+M\+E\+N\+T\+\_\+\+C\+LK}~P\+C2
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions.}
+\begin{DoxyCompactItemize}
+\item 
+void \textbf{ D\+I\+O\+D\+E\+\_\+init} (void)
+\begin{DoxyCompactList}\small\item\em Initialization of bargraphs driver. \end{DoxyCompactList}\item 
+void \textbf{ D\+I\+O\+D\+E\+\_\+\+F\+R\+O\+NT} (uint8\+\_\+t number\+\_\+of\+\_\+diodes\+\_\+bar\+\_\+1)
+\begin{DoxyCompactList}\small\item\em Displaying front distance by bargraph. \end{DoxyCompactList}\item 
+void \textbf{ D\+I\+O\+D\+E\+\_\+\+R\+E\+AR} (uint8\+\_\+t number\+\_\+of\+\_\+diodes\+\_\+bar\+\_\+2)
+\begin{DoxyCompactList}\small\item\em Displaying rear distance by bargraph. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Basic routines for interfacing two bargraphs. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <serial\_controller\_for\_diodes.h>} }
+\end{DoxyCode}
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <lcd\_definitions.h>} }
+\end{DoxyCode}
+
+
+\begin{DoxyAuthor}{Author}
+Filip Dusek, Marek Svoboda 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\label{group__our___l_e_d_ga37331aa386834d3713586e8ee353d4b5}} 
+\index{Bargraphs controller $<$serial\_controller\_for\_diodes.h$>$@{Bargraphs controller $<$serial\_controller\_for\_diodes.h$>$}!DIODE\_FRONT@{DIODE\_FRONT}}
+\index{DIODE\_FRONT@{DIODE\_FRONT}!Bargraphs controller $<$serial\_controller\_for\_diodes.h$>$@{Bargraphs controller $<$serial\_controller\_for\_diodes.h$>$}}
+\doxysubsubsection{DIODE\_FRONT()}
+{\footnotesize\ttfamily void D\+I\+O\+D\+E\+\_\+\+F\+R\+O\+NT (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{number\+\_\+of\+\_\+diodes\+\_\+bar\+\_\+1 }\end{DoxyParamCaption})}
+
+
+
+Displaying front distance by bargraph. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em number\+\_\+of\+\_\+diodes\+\_\+bar\+\_\+1} & number of L\+E\+Ds that should be displayed \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+\mbox{\label{group__our___l_e_d_gab0bb70097cc636f2c688218c3496f448}} 
+\index{Bargraphs controller $<$serial\_controller\_for\_diodes.h$>$@{Bargraphs controller $<$serial\_controller\_for\_diodes.h$>$}!DIODE\_init@{DIODE\_init}}
+\index{DIODE\_init@{DIODE\_init}!Bargraphs controller $<$serial\_controller\_for\_diodes.h$>$@{Bargraphs controller $<$serial\_controller\_for\_diodes.h$>$}}
+\doxysubsubsection{DIODE\_init()}
+{\footnotesize\ttfamily void D\+I\+O\+D\+E\+\_\+init (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Initialization of bargraphs driver. 
+
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+\mbox{\label{group__our___l_e_d_ga113d2d5d03fece69191cd970cd4e93b1}} 
+\index{Bargraphs controller $<$serial\_controller\_for\_diodes.h$>$@{Bargraphs controller $<$serial\_controller\_for\_diodes.h$>$}!DIODE\_REAR@{DIODE\_REAR}}
+\index{DIODE\_REAR@{DIODE\_REAR}!Bargraphs controller $<$serial\_controller\_for\_diodes.h$>$@{Bargraphs controller $<$serial\_controller\_for\_diodes.h$>$}}
+\doxysubsubsection{DIODE\_REAR()}
+{\footnotesize\ttfamily void D\+I\+O\+D\+E\+\_\+\+R\+E\+AR (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{number\+\_\+of\+\_\+diodes\+\_\+bar\+\_\+2 }\end{DoxyParamCaption})}
+
+
+
+Displaying rear distance by bargraph. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em number\+\_\+of\+\_\+diodes\+\_\+bar\+\_\+2} & number of L\+E\+Ds that should be displayed \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}

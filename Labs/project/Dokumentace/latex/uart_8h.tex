@@ -1,0 +1,65 @@
+\doxysection{C\+:/\+Users/\+Kunda/\+Documents/\+V\+U\+T/\+Cislicovka/\+Digitalni\+\_\+elektronika\+\_\+2/\+Digital-\/electronics-\/2/\+Labs/project/\+Parking\+Assistant\+\_\+\+H\+C-\/\+S\+R04/\+Parking\+Assistant\+\_\+\+H\+C-\/\+S\+R04/uart.h File Reference}
+\label{uart_8h}\index{C:/Users/Kunda/Documents/VUT/Cislicovka/Digitalni\_elektronika\_2/Digital-\/electronics-\/2/Labs/project/ParkingAssistant\_HC-\/SR04/ParkingAssistant\_HC-\/SR04/uart.h@{C:/Users/Kunda/Documents/VUT/Cislicovka/Digitalni\_elektronika\_2/Digital-\/electronics-\/2/Labs/project/ParkingAssistant\_HC-\/SR04/ParkingAssistant\_HC-\/SR04/uart.h}}
+
+
+Basic routines for U\+A\+RT communication.  
+
+
+{\ttfamily \#include $<$avr/pgmspace.\+h$>$}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ U\+A\+R\+T\+\_\+\+B\+A\+U\+D\+\_\+\+S\+E\+L\+E\+CT}(baud\+Rate,  xtal\+Cpu)~(((xtal\+Cpu) + 8UL $\ast$ (baud\+Rate)) / (16UL $\ast$ (baud\+Rate)) -\/ 1UL)
+\begin{DoxyCompactList}\small\item\em U\+A\+RT Baudrate Expression. \end{DoxyCompactList}\item 
+\#define \textbf{ U\+A\+R\+T\+\_\+\+B\+A\+U\+D\+\_\+\+S\+E\+L\+E\+C\+T\+\_\+\+D\+O\+U\+B\+L\+E\+\_\+\+S\+P\+E\+ED}(baud\+Rate,  xtal\+Cpu)~( ((((xtal\+Cpu) + 4UL $\ast$ (baud\+Rate)) / (8UL $\ast$ (baud\+Rate)) -\/ 1UL)) $\vert$ 0x8000)
+\begin{DoxyCompactList}\small\item\em U\+A\+RT Baudrate Expression for A\+Tmega double speed mode. \end{DoxyCompactList}\item 
+\#define \textbf{ U\+A\+R\+T\+\_\+\+R\+X\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+ZE}~32
+\begin{DoxyCompactList}\small\item\em Size of the circular receive buffer, must be power of 2. \end{DoxyCompactList}\item 
+\#define \textbf{ U\+A\+R\+T\+\_\+\+T\+X\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+ZE}~32
+\begin{DoxyCompactList}\small\item\em Size of the circular transmit buffer, must be power of 2. \end{DoxyCompactList}\item 
+\#define \textbf{ U\+A\+R\+T\+\_\+\+F\+R\+A\+M\+E\+\_\+\+E\+R\+R\+OR}~0x1000
+\begin{DoxyCompactList}\small\item\em Framing Error by U\+A\+RT ~\newline
+ \end{DoxyCompactList}\item 
+\#define \textbf{ U\+A\+R\+T\+\_\+\+O\+V\+E\+R\+R\+U\+N\+\_\+\+E\+R\+R\+OR}~0x0800
+\begin{DoxyCompactList}\small\item\em Overrun condition by U\+A\+RT ~\newline
+ \end{DoxyCompactList}\item 
+\#define \textbf{ U\+A\+R\+T\+\_\+\+P\+A\+R\+I\+T\+Y\+\_\+\+E\+R\+R\+OR}~0x0400
+\begin{DoxyCompactList}\small\item\em Parity Error by U\+A\+RT ~\newline
+ \end{DoxyCompactList}\item 
+\#define \textbf{ U\+A\+R\+T\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+O\+V\+E\+R\+F\+L\+OW}~0x0200
+\begin{DoxyCompactList}\small\item\em receive ringbuffer overflow \end{DoxyCompactList}\item 
+\#define \textbf{ U\+A\+R\+T\+\_\+\+N\+O\+\_\+\+D\+A\+TA}~0x0100
+\begin{DoxyCompactList}\small\item\em no receive data available ~\newline
+ \end{DoxyCompactList}\item 
+\#define \textbf{ uart\+\_\+puts\+\_\+P}(\+\_\+\+\_\+s)~\textbf{ uart\+\_\+puts\+\_\+p}(P\+S\+TR(\+\_\+\+\_\+s))
+\begin{DoxyCompactList}\small\item\em Macro to automatically put a string constant into program memory. \end{DoxyCompactList}\item 
+\#define \textbf{ uart1\+\_\+puts\+\_\+P}(\+\_\+\+\_\+s)~\textbf{ uart1\+\_\+puts\+\_\+p}(P\+S\+TR(\+\_\+\+\_\+s))
+\begin{DoxyCompactList}\small\item\em Macro to automatically put a string constant into program memory. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \textbf{ uart\+\_\+init} (unsigned int baudrate)
+\begin{DoxyCompactList}\small\item\em Initialize U\+A\+RT and set baudrate. \end{DoxyCompactList}\item 
+unsigned int \textbf{ uart\+\_\+getc} (void)
+\begin{DoxyCompactList}\small\item\em Get received byte from ringbuffer. \end{DoxyCompactList}\item 
+void \textbf{ uart\+\_\+putc} (unsigned char data)
+\begin{DoxyCompactList}\small\item\em Put byte to ringbuffer for transmitting via U\+A\+RT. \end{DoxyCompactList}\item 
+void \textbf{ uart\+\_\+puts} (const char $\ast$s)
+\begin{DoxyCompactList}\small\item\em Put string to ringbuffer for transmitting via U\+A\+RT. \end{DoxyCompactList}\item 
+void \textbf{ uart\+\_\+puts\+\_\+p} (const char $\ast$s)
+\begin{DoxyCompactList}\small\item\em Put string from program memory to ringbuffer for transmitting via U\+A\+RT. \end{DoxyCompactList}\item 
+void \textbf{ uart1\+\_\+init} (unsigned int baudrate)
+\begin{DoxyCompactList}\small\item\em Initialize U\+S\+A\+R\+T1 (only available on selected A\+Tmegas) \end{DoxyCompactList}\item 
+unsigned int \textbf{ uart1\+\_\+getc} (void)
+\begin{DoxyCompactList}\small\item\em Get received byte of U\+S\+A\+R\+T1 from ringbuffer. (only available on selected A\+Tmega) \end{DoxyCompactList}\item 
+void \textbf{ uart1\+\_\+putc} (unsigned char data)
+\begin{DoxyCompactList}\small\item\em Put byte to ringbuffer for transmitting via U\+S\+A\+R\+T1 (only available on selected A\+Tmega) \end{DoxyCompactList}\item 
+void \textbf{ uart1\+\_\+puts} (const char $\ast$s)
+\begin{DoxyCompactList}\small\item\em Put string to ringbuffer for transmitting via U\+S\+A\+R\+T1 (only available on selected A\+Tmega) \end{DoxyCompactList}\item 
+void \textbf{ uart1\+\_\+puts\+\_\+p} (const char $\ast$s)
+\begin{DoxyCompactList}\small\item\em Put string from program memory to ringbuffer for transmitting via U\+S\+A\+R\+T1 (only available on selected A\+Tmega) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Basic routines for U\+A\+RT communication. 
+
