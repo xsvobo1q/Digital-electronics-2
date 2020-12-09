@@ -2,7 +2,7 @@
  * serial_controller_for_diodes.c
  *
  * Created: 23.11.2020 13:41:32
- *  Author: XXX
+ *  Author: Dusek,Svoboda
  */ 
 /* Includes ----------------------------------------------------------*/
 #define F_CPU 16000000
@@ -10,35 +10,21 @@
 #include "gpio.h"
 #include "serial_controller_for_diodes.h"
 
-
 /* Variables ---------------------------------------------------------*/
 
 
-// Active-high position 0 to 7
+// Active-high position 0 to 8
 uint8_t diode_number[] = {
-	// p3p2p1p0....
+	// d7d6d5d4....
 	0b00000000,
-	0b00000001,   // Position 0 = 2 cm
-	0b00000011,   // Position 1 = 4 cm 
-	0b00000111,	  // Position 2 = 6 cm
-	0b00001111,   // Position 3 = 8 cm
-	0b00011111,   // Position 4 = 10 cm
-	0b00111111,   // Position 5 = 12 cm
-	0b01111111,	  // Position 6 = 14 cm
-	0b11111111};   // Position 7 = 16 cm
-
-uint8_t diode_number1[] = {
-	// p3p2p1p0....
-	0b00000000,
-	0b00000001,   // Position 0 = 2 cm
-	0b00000011,   // Position 1 = 4 cm
-	0b00000111,	  // Position 2 = 6 cm
-	0b00001111,   // Position 3 = 8 cm
-	0b00011111,   // Position 4 = 10 cm
-	0b00111111,   // Position 5 = 12 cm
-	0b01111111,	  // Position 6 = 14 cm
-	0b11111111};   // Position 7 = 16 cm
-
+	0b00000001,   
+	0b00000011,   
+	0b00000111,	  
+	0b00001111,  
+	0b00011111,  
+	0b00111111,  
+	0b01111111,	  
+	0b11111111};  
 
 
 
@@ -50,30 +36,29 @@ void DIODE_init(void)
 	GPIO_config_output(&DDRC, DATA_INPUT_REAR);
 	GPIO_config_output(&DDRC, DATA_INPUT_FRONT);
 	GPIO_config_output(&DDRC, SEGMENT_CLK);
-	GPIO_config_output(&DDRC, SEGMENT_LATCH);
-	GPIO_config_output(&DDRC, SEGMENT_LATCH2);
+	GPIO_config_output(&DDRC, SEGMENT_LATCH_BAR_1);
+	GPIO_config_output(&DDRC, SEGMENT_LATCH_BAR_2);
 
 }
 
 /*--------------------------------------------------------------------*/
-void DIODE_update_shift_regs_FRONT(uint8_t number)
+void DIODE_FRONT(uint8_t number_of_diodes_bar_1)
 {
-	uint8_t bit_number;
-	number = diode_number[number];
-/*	row = diode_row[row];*/
+	uint8_t bit_number_diodes_1;
+	number_of_diodes_bar_1 = diode_number[number_of_diodes_bar_1];
 	
 	// 
 	GPIO_write_low(&PORTC,DATA_INPUT_FRONT);
 	GPIO_write_low(&PORTC, SEGMENT_CLK);
-	GPIO_write_low(&PORTC, SEGMENT_LATCH);	
+	GPIO_write_low(&PORTC, SEGMENT_LATCH_BAR_1);	
 	// Wait 1 us
 	_delay_us(1);
 	
 
-	for (bit_number = 0; bit_number < 8; bit_number++)
+	for (bit_number_diodes_1 = 0; bit_number_diodes_1 < 8; bit_number_diodes_1++)
 	{
 		// Output DATA value (bit 0 of "segments")
-		if ((number & 1) == 0)
+		if ((number_of_diodes_bar_1 & 1) == 0)
 		{
 			GPIO_write_low(&PORTC,DATA_INPUT_FRONT);
 		}
@@ -91,40 +76,13 @@ void DIODE_update_shift_regs_FRONT(uint8_t number)
  		// Pull CLK low
  		GPIO_write_low(&PORTC,SEGMENT_CLK);
 		 		
-		number = number >> 1;
+		number_of_diodes_bar_1 = number_of_diodes_bar_1 >> 1;
 		
 	}
 	
-	
-// 	for (bit_number = 0; bit_number < 8; bit_number++)
-// 	{
-// 		// Output DATA value (bit 0 of "segments")
-// 		if ((number & 1) == 0)
-// 		{
-// 			GPIO_write_low(&PORTC,DATA_INPUT_REAR);
-// 		}
-// 		else
-// 		{
-// 			GPIO_write_high(&PORTC, DATA_INPUT_REAR);
-// 		}
-// 
-// 		// Wait 1 us
-// 		_delay_us(1);
-// 		// Pull CLK high
-// 		GPIO_write_high(&PORTC,SEGMENT_CLK);
-// 		// Wait 1 us
-// 		_delay_us(1);
-// 		// Pull CLK low
-// 		GPIO_write_low(&PORTC,SEGMENT_CLK);
-// 			
-// 		number = number >> 1;
-// 			
-// 
-// 
-// 		}
 
 // 	// Pull LATCH high
- 	GPIO_write_high(&PORTC,SEGMENT_LATCH);
+ 	GPIO_write_high(&PORTC,SEGMENT_LATCH_BAR_1);
 
 	// Wait 1 us
 	_delay_us(1);
@@ -132,24 +90,24 @@ void DIODE_update_shift_regs_FRONT(uint8_t number)
 }
 
 /*--------------------------------------------------------------------*/
-void DIODE_update_shift_regs_REAR(uint8_t number1)
+void DIODE_REAR(uint8_t number_of_diodes_bar_2)
 {
-	uint8_t bit_number;
-	number1 = diode_number1[number1];
-	/*	row = diode_row[row];*/
+	uint8_t bit_number_diodes_2;
+	number_of_diodes_bar_2 = diode_number[number_of_diodes_bar_2];
+	
 	
 	//
 	GPIO_write_low(&PORTC,DATA_INPUT_REAR);
 	GPIO_write_low(&PORTC, SEGMENT_CLK);
-	GPIO_write_low(&PORTC, SEGMENT_LATCH2);
+	GPIO_write_low(&PORTC, SEGMENT_LATCH_BAR_2);
 	// Wait 1 us
 	_delay_us(1);
 	
 
-	for (bit_number = 0; bit_number < 8; bit_number++)
+	for (bit_number_diodes_2 = 0; bit_number_diodes_2 < 8; bit_number_diodes_2++)
 	{
 		// Output DATA value (bit 0 of "segments")
-		if ((number1 & 1) == 0)
+		if ((number_of_diodes_bar_2 & 1) == 0)
 		{
 			GPIO_write_low(&PORTC,DATA_INPUT_REAR);
 		}
@@ -167,20 +125,15 @@ void DIODE_update_shift_regs_REAR(uint8_t number1)
 		// Pull CLK low
 		GPIO_write_low(&PORTC,SEGMENT_CLK);
 		
-		number1 = number1 >> 1;
+		number_of_diodes_bar_2 = number_of_diodes_bar_2 >> 1;
 		
 	}
 	
 	
 	// 	// Pull LATCH high
-	GPIO_write_high(&PORTC,SEGMENT_LATCH2);
+	GPIO_write_high(&PORTC,SEGMENT_LATCH_BAR_2);
 
 	// Wait 1 us
 	_delay_us(1);
 
 }
-/*--------------------------------------------------------------------*/
-/* SEG_clear */
-
-/*--------------------------------------------------------------------*/
-/* SEG_clk_2us */
