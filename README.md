@@ -40,9 +40,21 @@ Tento projekt se zabívá realizací parkovacího asistenta pomocí dvou ultrazv
 ![Multi-function shield](v3_Vývojový_diagram.jpg)
 
 ## Popis_kódu_a_simulace
+Kód pracuje jako multiplexor, který přepíná mezi meřením vzdálenosti od předního senzoru, zadního senzoru a zobrazováním hodnot. Byly využity dva čítače.
+TIMER0 je využit na meření délky Echo pulsu a TIMER1 slouží k ovládání bzučáku, který "pípá" podle nejmenší vzdálenosti ze dvou měřených.
 
+V první fázi je měřena vzdálenost překážky od předního senzoru. Podle doporučení výrobce je na Trigrovací vstup HC-SR04 vyslán spouštěcí impuls o určité délce a zároveň se zajistí,
+aby se toto opakovalo nejdříve 50us po změření (opět doporučení výrobce). V tento okamžik mikrokontroler čeká na příchod Echo pulsu, jehož délka je závislá na vzdálenosti
+překážky od senzoru. Tato funkce je realizována pomocí externího přerušení, které je nastavené na změnu úrovně na definovaném pinu mikrokontroléru. Senzor vyšle Echo puls s náběžnou hranou, která spustí
+ISR. V ISR se povolí zápis do proměnné distanceFront. Zápis realizuje TIMER0 jehož každé přetečení znamená přičtení 16 us. Po příchodu sestupné hrany Echo pulsu se
+zápis zakáže a hodnota distanceFront je připravena k dalšímu zpracování. Takovýto cyklus proběhne pětkrát (průměrování hodnoty) a multiplexor se přepne na měření
+vzdálenosti překážky od zadního senzoru. To probíhá naprosto stejně jako měření od předního senzoru. Nakonec multiplexor přepne na stav zobrazování, které si zavolá
+funkci obsahující ovládání LCD displeje, LED bargrafů, UART a bzučáku. Součástí této funkce je samozřejmě výpočet vzdálenosti podle načítaných hodnot. Přesnost 16 us odpovídá
+přesnosti cca 2,7mm.
 
-
+Zobrazovací funkce vyhodnotí menší z měřených vzdáleností a podle této hodnoty ovládá rychlost přetečení (vrací inicializační hodnotu registru TCNT1) čítače TIMER1, což způsobí
+změnu rychlosti pípání bzučáku.
+Poté pro každou ze vzdáleností vyhodnotí počet rozsvícených signalizačních diod a hodnoty vypíše na UART a LCD displej s přesností na jedno desetinné místo. S větší přesností nemá smysl vypisovat, protože senzor sám o sobě má přesnost kolem 2 mm.
 
 ## Video
 
