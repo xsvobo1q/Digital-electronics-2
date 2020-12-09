@@ -26,6 +26,7 @@
 
 /**
  *  @file
+ *  @brief Basic routines for UART communication
  *  @defgroup pfleury_uart UART Library <uart.h>
  *  @code #include <uart.h> @endcode
  *

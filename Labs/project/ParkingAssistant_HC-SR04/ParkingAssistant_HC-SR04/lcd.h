@@ -12,6 +12,7 @@
 
 /**
  * @file
+ * @brief Basic routines for LCD with driver HD44780U
  * @defgroup pfleury_lcd LCD library <lcd.h>
  * @code #include <lcd.h> @endcode
  *

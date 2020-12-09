@@ -95,72 +95,72 @@ $(function() {
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">*</span></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">************************************************************************/</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">#include &lt;avr/pgmspace.h&gt;</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#if (__GNUC__ * 100 + __GNUC_MINOR__) &lt; 405</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor"># error &quot;This library requires AVR-GCC 4.5 or later, update to newer AVR-GCC compiler !&quot;</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#include &lt;avr/pgmspace.h&gt;</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#if (__GNUC__ * 100 + __GNUC_MINOR__) &lt; 405</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor"># error &quot;This library requires AVR-GCC 4.5 or later, update to newer AVR-GCC compiler !&quot;</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">** constants and macros</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">** constants and macros</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">*/</span></div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="group__pfleury__uart.html#ga367ff7b5de225ed936a63239ad4adb0b">   70</a></span>&#160;<span class="preprocessor">#define UART_BAUD_SELECT(baudRate, xtalCpu) (((xtalCpu) + 8UL * (baudRate)) / (16UL * (baudRate)) - 1UL)</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="group__pfleury__uart.html#ga1a02d45130520cb651ab313e69039382">   76</a></span>&#160;<span class="preprocessor">#define UART_BAUD_SELECT_DOUBLE_SPEED(baudRate, xtalCpu) ( ((((xtalCpu) + 4UL * (baudRate)) / (8UL * (baudRate)) - 1UL)) | 0x8000)</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor">#ifndef UART_RX_BUFFER_SIZE</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="group__pfleury__uart.html#ga5bdd6772c246436bb14377095de79b31">   84</a></span>&#160;<span class="preprocessor"># define UART_RX_BUFFER_SIZE 32</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor">#ifndef UART_TX_BUFFER_SIZE</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="group__pfleury__uart.html#ga05f5d709605c6317c97e4974bec3402a">   93</a></span>&#160;<span class="preprocessor"># define UART_TX_BUFFER_SIZE 32</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="comment">/* test if the size of the circular buffers fits into SRAM */</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="preprocessor">#if ( (UART_RX_BUFFER_SIZE + UART_TX_BUFFER_SIZE) &gt;= (RAMEND - 0x60 ) )</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="preprocessor"># error &quot;size of UART_RX_BUFFER_SIZE + UART_TX_BUFFER_SIZE larger than size of SRAM&quot;</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="comment">** high byte error return code of uart_getc()</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="comment">*/</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="group__pfleury__uart.html#gabcdb1041d763560cd8f8e722370dfd37">  104</a></span>&#160;<span class="preprocessor">#define UART_FRAME_ERROR     0x1000 </span></div>
-<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="group__pfleury__uart.html#ga3183177e3613d8785d8cc8516931beb6">  105</a></span>&#160;<span class="preprocessor">#define UART_OVERRUN_ERROR   0x0800 </span></div>
-<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="group__pfleury__uart.html#ga946e3d317937e003d2057bf19e96dd1d">  106</a></span>&#160;<span class="preprocessor">#define UART_PARITY_ERROR    0x0400 </span></div>
-<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="group__pfleury__uart.html#ga94758f3dad6864703b7417d3e40f11df">  107</a></span>&#160;<span class="preprocessor">#define UART_BUFFER_OVERFLOW 0x0200 </span></div>
-<div class="line"><a name="l00108"></a><span class="lineno"><a class="line" href="group__pfleury__uart.html#ga77ba544d423ff42d400220a05303f268">  108</a></span>&#160;<span class="preprocessor">#define UART_NO_DATA         0x0100 </span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="preprocessor"></span><span class="comment">/*</span></div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="comment">** function prototypes</span></div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="comment">*/</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="group__pfleury__uart.html#gac19a76bb7d446125734a67f9f4b68991">uart_init</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> baudrate);</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="group__pfleury__uart.html#ga367ff7b5de225ed936a63239ad4adb0b">   71</a></span>&#160;<span class="preprocessor">#define UART_BAUD_SELECT(baudRate, xtalCpu) (((xtalCpu) + 8UL * (baudRate)) / (16UL * (baudRate)) - 1UL)</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="group__pfleury__uart.html#ga1a02d45130520cb651ab313e69039382">   77</a></span>&#160;<span class="preprocessor">#define UART_BAUD_SELECT_DOUBLE_SPEED(baudRate, xtalCpu) ( ((((xtalCpu) + 4UL * (baudRate)) / (8UL * (baudRate)) - 1UL)) | 0x8000)</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor">#ifndef UART_RX_BUFFER_SIZE</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="group__pfleury__uart.html#ga5bdd6772c246436bb14377095de79b31">   85</a></span>&#160;<span class="preprocessor"># define UART_RX_BUFFER_SIZE 32</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="preprocessor">#ifndef UART_TX_BUFFER_SIZE</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="group__pfleury__uart.html#ga05f5d709605c6317c97e4974bec3402a">   94</a></span>&#160;<span class="preprocessor"># define UART_TX_BUFFER_SIZE 32</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="comment">/* test if the size of the circular buffers fits into SRAM */</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="preprocessor">#if ( (UART_RX_BUFFER_SIZE + UART_TX_BUFFER_SIZE) &gt;= (RAMEND - 0x60 ) )</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="preprocessor"># error &quot;size of UART_RX_BUFFER_SIZE + UART_TX_BUFFER_SIZE larger than size of SRAM&quot;</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="comment">** high byte error return code of uart_getc()</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="group__pfleury__uart.html#gabcdb1041d763560cd8f8e722370dfd37">  105</a></span>&#160;<span class="preprocessor">#define UART_FRAME_ERROR     0x1000 </span></div>
+<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="group__pfleury__uart.html#ga3183177e3613d8785d8cc8516931beb6">  106</a></span>&#160;<span class="preprocessor">#define UART_OVERRUN_ERROR   0x0800 </span></div>
+<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="group__pfleury__uart.html#ga946e3d317937e003d2057bf19e96dd1d">  107</a></span>&#160;<span class="preprocessor">#define UART_PARITY_ERROR    0x0400 </span></div>
+<div class="line"><a name="l00108"></a><span class="lineno"><a class="line" href="group__pfleury__uart.html#ga94758f3dad6864703b7417d3e40f11df">  108</a></span>&#160;<span class="preprocessor">#define UART_BUFFER_OVERFLOW 0x0200 </span></div>
+<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="group__pfleury__uart.html#ga77ba544d423ff42d400220a05303f268">  109</a></span>&#160;<span class="preprocessor">#define UART_NO_DATA         0x0100 </span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="preprocessor"></span><span class="comment">/*</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="comment">** function prototypes</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="comment">*/</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="group__pfleury__uart.html#gac19a76bb7d446125734a67f9f4b68991">uart_init</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> baudrate);</div>
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="group__pfleury__uart.html#gaefaab30a8338ec46a6be35b99b1b4f09">uart_getc</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="group__pfleury__uart.html#gaefaab30a8338ec46a6be35b99b1b4f09">uart_getc</a>(<span class="keywordtype">void</span>);</div>
 <div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="group__pfleury__uart.html#gad975221bc08b901e4c7ad69f9c9a97e2">uart_putc</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> data);</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160; </div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="group__pfleury__uart.html#gad975221bc08b901e4c7ad69f9c9a97e2">uart_putc</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> data);</div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="group__pfleury__uart.html#gae52facc0a56086a365bb0018160d8d71">uart_puts</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *s);</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160; </div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="group__pfleury__uart.html#gae52facc0a56086a365bb0018160d8d71">uart_puts</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *s);</div>
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160; </div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="group__pfleury__uart.html#ga6d78b6744db6232f52b4616402036c2f">uart_puts_p</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *s);</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160; </div>
-<div class="line"><a name="l00187"></a><span class="lineno"><a class="line" href="group__pfleury__uart.html#gae9e143569df2285379bc55f9f5595bf9">  187</a></span>&#160;<span class="preprocessor">#define uart_puts_P(__s) uart_puts_p(PSTR(__s))</span></div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160; </div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="group__pfleury__uart.html#ga6d78b6744db6232f52b4616402036c2f">uart_puts_p</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *s);</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160; </div>
+<div class="line"><a name="l00188"></a><span class="lineno"><a class="line" href="group__pfleury__uart.html#gae9e143569df2285379bc55f9f5595bf9">  188</a></span>&#160;<span class="preprocessor">#define uart_puts_P(__s) uart_puts_p(PSTR(__s))</span></div>
 <div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160; </div>
-<div class="line"><a name="l00191"></a><span class="lineno"><a class="line" href="group__pfleury__uart.html#ga4db697cb5469fd70e794fa7df73a6d6a">  191</a></span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="group__pfleury__uart.html#ga4db697cb5469fd70e794fa7df73a6d6a">uart1_init</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> baudrate);</div>
-<div class="line"><a name="l00193"></a><span class="lineno"><a class="line" href="group__pfleury__uart.html#gaeb1405c641e5bc9b7224018f5e8d90de">  193</a></span>&#160;<span class="keyword">extern</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="group__pfleury__uart.html#gaeb1405c641e5bc9b7224018f5e8d90de">uart1_getc</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00195"></a><span class="lineno"><a class="line" href="group__pfleury__uart.html#gab465f689d197fadfbacc374fc9411154">  195</a></span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="group__pfleury__uart.html#gab465f689d197fadfbacc374fc9411154">uart1_putc</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> data);</div>
-<div class="line"><a name="l00197"></a><span class="lineno"><a class="line" href="group__pfleury__uart.html#ga5568f8f3913b218fd4d0346af78831b2">  197</a></span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="group__pfleury__uart.html#ga5568f8f3913b218fd4d0346af78831b2">uart1_puts</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *s);</div>
-<div class="line"><a name="l00199"></a><span class="lineno"><a class="line" href="group__pfleury__uart.html#ga1e8074d0a2d5922601c5db2f9777ba79">  199</a></span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="group__pfleury__uart.html#ga1e8074d0a2d5922601c5db2f9777ba79">uart1_puts_p</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *s);</div>
-<div class="line"><a name="l00201"></a><span class="lineno"><a class="line" href="group__pfleury__uart.html#gaabd7a5b0c15611ee9ecb2873cc9ee87a">  201</a></span>&#160;<span class="preprocessor">#define uart1_puts_P(__s) uart1_puts_p(PSTR(__s))</span></div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160; </div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;<span class="preprocessor">#endif // UART_H</span></div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160; </div>
+<div class="line"><a name="l00192"></a><span class="lineno"><a class="line" href="group__pfleury__uart.html#ga4db697cb5469fd70e794fa7df73a6d6a">  192</a></span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="group__pfleury__uart.html#ga4db697cb5469fd70e794fa7df73a6d6a">uart1_init</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> baudrate);</div>
+<div class="line"><a name="l00194"></a><span class="lineno"><a class="line" href="group__pfleury__uart.html#gaeb1405c641e5bc9b7224018f5e8d90de">  194</a></span>&#160;<span class="keyword">extern</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="group__pfleury__uart.html#gaeb1405c641e5bc9b7224018f5e8d90de">uart1_getc</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00196"></a><span class="lineno"><a class="line" href="group__pfleury__uart.html#gab465f689d197fadfbacc374fc9411154">  196</a></span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="group__pfleury__uart.html#gab465f689d197fadfbacc374fc9411154">uart1_putc</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> data);</div>
+<div class="line"><a name="l00198"></a><span class="lineno"><a class="line" href="group__pfleury__uart.html#ga5568f8f3913b218fd4d0346af78831b2">  198</a></span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="group__pfleury__uart.html#ga5568f8f3913b218fd4d0346af78831b2">uart1_puts</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *s);</div>
+<div class="line"><a name="l00200"></a><span class="lineno"><a class="line" href="group__pfleury__uart.html#ga1e8074d0a2d5922601c5db2f9777ba79">  200</a></span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="group__pfleury__uart.html#ga1e8074d0a2d5922601c5db2f9777ba79">uart1_puts_p</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *s);</div>
+<div class="line"><a name="l00202"></a><span class="lineno"><a class="line" href="group__pfleury__uart.html#gaabd7a5b0c15611ee9ecb2873cc9ee87a">  202</a></span>&#160;<span class="preprocessor">#define uart1_puts_P(__s) uart1_puts_p(PSTR(__s))</span></div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160; </div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;<span class="preprocessor">#endif // UART_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="agroup__pfleury__uart_html_gaefaab30a8338ec46a6be35b99b1b4f09"><div class="ttname"><a href="group__pfleury__uart.html#gaefaab30a8338ec46a6be35b99b1b4f09">uart_getc</a></div><div class="ttdeci">unsigned int uart_getc(void)</div><div class="ttdoc">Get received byte from ringbuffer.</div><div class="ttdef"><b>Definition:</b> uart.c:494</div></div>
 <div class="ttc" id="agroup__pfleury__uart_html_ga6d78b6744db6232f52b4616402036c2f"><div class="ttname"><a href="group__pfleury__uart.html#ga6d78b6744db6232f52b4616402036c2f">uart_puts_p</a></div><div class="ttdeci">void uart_puts_p(const char *s)</div><div class="ttdoc">Put string from program memory to ringbuffer for transmitting via UART.</div><div class="ttdef"><b>Definition:</b> uart.c:563</div></div>

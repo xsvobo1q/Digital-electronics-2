@@ -73,30 +73,30 @@ $(function() {
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * serial_controller_for_diodes.h</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> * Created: 23.11.2020 14:18:37</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> *  Author: Dusek,Svoboda</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> * Author: Dusek,Svoboda</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> */</span> </div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#ifndef SERIAL_CONTROLLER_FOR_DIODES_H_</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#define SERIAL_CONTROLLER_FOR_DIODES_H_</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#define DATA_INPUT_FRONT         PC0</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#define DATA_INPUT_REAR          PC3</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#define SEGMENT_LATCH_BAR_1      PC1</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#define SEGMENT_LATCH_BAR_2      PC4</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#define SEGMENT_CLK              PC2</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#ifndef SERIAL_CONTROLLER_FOR_DIODES_H_</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#define SERIAL_CONTROLLER_FOR_DIODES_H_</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#define DATA_INPUT_FRONT         PC0</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#define DATA_INPUT_REAR          PC3</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#define SEGMENT_LATCH_BAR_1      PC1</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#define SEGMENT_LATCH_BAR_2      PC4</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#define SEGMENT_CLK              PC2</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">//declaration init. function</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__our___l_e_d.html#gab0bb70097cc636f2c688218c3496f448">DIODE_init</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">//declaration functions </span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__our___l_e_d.html#ga37331aa386834d3713586e8ee353d4b5">DIODE_FRONT</a>(uint8_t number_of_diodes_bar_1);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__our___l_e_d.html#ga113d2d5d03fece69191cd970cd4e93b1">DIODE_REAR</a>(uint8_t number_of_diodes_bar_2);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* SERIAL_CONTROLLER_FOR_DIODES_H_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">//declaration init. function</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__our___l_e_d.html#gab0bb70097cc636f2c688218c3496f448">DIODE_init</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">//declaration functions </span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__our___l_e_d.html#ga37331aa386834d3713586e8ee353d4b5">DIODE_FRONT</a>(uint8_t number_of_diodes_bar_1);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__our___l_e_d.html#ga113d2d5d03fece69191cd970cd4e93b1">DIODE_REAR</a>(uint8_t number_of_diodes_bar_2);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* SERIAL_CONTROLLER_FOR_DIODES_H_ */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="agroup__our___l_e_d_html_ga37331aa386834d3713586e8ee353d4b5"><div class="ttname"><a href="group__our___l_e_d.html#ga37331aa386834d3713586e8ee353d4b5">DIODE_FRONT</a></div><div class="ttdeci">void DIODE_FRONT(uint8_t number_of_diodes_bar_1)</div><div class="ttdoc">Displaying front distance by bargraph.</div><div class="ttdef"><b>Definition:</b> serial_controller_for_diodes.c:45</div></div>
 <div class="ttc" id="agroup__our___l_e_d_html_ga113d2d5d03fece69191cd970cd4e93b1"><div class="ttname"><a href="group__our___l_e_d.html#ga113d2d5d03fece69191cd970cd4e93b1">DIODE_REAR</a></div><div class="ttdeci">void DIODE_REAR(uint8_t number_of_diodes_bar_2)</div><div class="ttdoc">Displaying rear distance by bargraph.</div><div class="ttdef"><b>Definition:</b> serial_controller_for_diodes.c:93</div></div>

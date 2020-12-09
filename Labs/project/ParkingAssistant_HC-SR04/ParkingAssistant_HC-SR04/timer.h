@@ -17,7 +17,8 @@
  * @brief Timer library for AVR-GCC.
  *
  * @details
- * The library contains macros for controlling the timer modules.
+ * The library contains macros for controlling the timer modules. Every timer has some possibility to set overflow time (it depends on pre-scalers).
+ * For interrupt from timer overflow vector is necessary to enable it. 
  *
  * @note
  * Based on Microchip Atmel ATmega328P manual and no source file is 

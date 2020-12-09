@@ -86,14 +86,13 @@ int main(void)
 	TIM0_overflow_16us();
 	TIM0_overflow_interrupt_enable();
 	
-	EIMSK |= (1<<INT1);								// interrupt enable on INT1
-	EICRA &= ~(1<<ISC11); EICRA |= (1<<ISC10);		// interrupt when change is on INT1
-	EIMSK |= (1<<INT0);								// interrupt enable on INT0
-	EICRA &= ~(1<<ISC01); EICRA |= (1<<ISC00);		// interrupt when change is on INT0
+	EIMSK |= (1<<INT1);								// set register to interrupt enable on INT1
+	EICRA &= ~(1<<ISC11); EICRA |= (1<<ISC10);		// set register to interrupt when level change is on INT1
+	EIMSK |= (1<<INT0);								// set register to interrupt enable on INT0
+	EICRA &= ~(1<<ISC01); EICRA |= (1<<ISC00);		// set register to interrupt when level change is on INT0
 	
 	sei();
 	
-    /* Replace with your application code */
     while (1) 
     {
 		if ((mux == 1) & (trigEnable == 1))
@@ -112,8 +111,7 @@ int main(void)
 				GPIO_write_high(&PORTB, sensTrigFront);
 				_delay_us(10);
 				GPIO_write_low(&PORTB, sensTrigFront);	 
-			 }
-			
+			 }		
 		}
 		
 		if ((mux == 2) & (trigEnable == 1))
@@ -141,8 +139,7 @@ int main(void)
 			distanceFront = 0;												  // and returns value for beep timer
 			distanceRear = 0;
 			mux = 1;
-		}
-		
+		}		
     }
 }
 
@@ -204,15 +201,16 @@ ISR(TIMER1_OVF_vect)
 
 int displayValues(float distanceRear, float distanceFront){
 	
-	// calculating distance
-		
-	char uartString[50];
+	/* Help chars for displaying */	
+	char uartString[50];		
 	char dispString[50];
 	float dist = 0;	
-
+	
+	/* Calculating distance in cm from time in [us] and speed of sound in [cm/us] */
 	distanceRear = (distanceRear/2) * 0.0343;
 	distanceFront = (distanceFront/2) * 0.0343;
 	
+	/* Logic for buzzer */
 	if (distanceRear < distanceFront)
 	{
 		dist = distanceRear;

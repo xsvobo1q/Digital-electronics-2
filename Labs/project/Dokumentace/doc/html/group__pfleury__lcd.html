@@ -79,7 +79,7 @@ Definition for LCD controller type</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Definitions for Display Size</h2></td></tr>
 <tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrpcaec0cb1262819d89ffa7f25526cc869"></a>Change these definitions to adapt setting to your display</p>
-<p>These definitions can be defined in a separate include file <b><a class="el" href="lcd__definitions_8h.html" title="Defining connection of LCD to AVR.">lcd_definitions.h</a></b> instead modifying this file by adding -D_LCD_DEFINITIONS_FILE to the CDEFS section in the Makefile. All definitions added to the file <a class="el" href="lcd__definitions_8h.html" title="Defining connection of LCD to AVR.">lcd_definitions.h</a> will override the default definitions from <a class="el" href="lcd_8h.html">lcd.h</a> </p>
+<p>These definitions can be defined in a separate include file <b><a class="el" href="lcd__definitions_8h.html" title="Defining connection of LCD to AVR.">lcd_definitions.h</a></b> instead modifying this file by adding -D_LCD_DEFINITIONS_FILE to the CDEFS section in the Makefile. All definitions added to the file <a class="el" href="lcd__definitions_8h.html" title="Defining connection of LCD to AVR.">lcd_definitions.h</a> will override the default definitions from <a class="el" href="lcd_8h.html" title="Basic routines for LCD with driver HD44780U.">lcd.h</a> </p>
 </td></tr>
 <tr class="memitem:ga01212e90283511562039db786f65ba98"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__pfleury__lcd.html#ga01212e90283511562039db786f65ba98">LCD_LINES</a>&#160;&#160;&#160;2</td></tr>
 <tr class="separator:ga01212e90283511562039db786f65ba98"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -103,7 +103,7 @@ Definitions for 4-bit IO mode</h2></td></tr>
 <tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp0d38ed8c5b4202f593f69f9003c1a16c"></a>The four LCD data lines and the three control lines RS, RW, E can be on the same port or on different ports. Change LCD_RS_PORT, LCD_RW_PORT, LCD_E_PORT if you want the control lines on different ports.</p>
 <p>Normally the four data lines should be mapped to bit 0..3 on one port, but it is possible to connect these data lines in different order or even on different ports by adapting the LCD_DATAx_PORT and LCD_DATAx_PIN definitions.</p>
 <p>Adjust these definitions to your target.<br  />
-These definitions can be defined in a separate include file <b><a class="el" href="lcd__definitions_8h.html" title="Defining connection of LCD to AVR.">lcd_definitions.h</a></b> instead modifying this file by adding <b>-D_LCD_DEFINITIONS_FILE</b> to the <b>CDEFS</b> section in the Makefile. All definitions added to the file <a class="el" href="lcd__definitions_8h.html" title="Defining connection of LCD to AVR.">lcd_definitions.h</a> will override the default definitions from <a class="el" href="lcd_8h.html">lcd.h</a> </p>
+These definitions can be defined in a separate include file <b><a class="el" href="lcd__definitions_8h.html" title="Defining connection of LCD to AVR.">lcd_definitions.h</a></b> instead modifying this file by adding <b>-D_LCD_DEFINITIONS_FILE</b> to the <b>CDEFS</b> section in the Makefile. All definitions added to the file <a class="el" href="lcd__definitions_8h.html" title="Defining connection of LCD to AVR.">lcd_definitions.h</a> will override the default definitions from <a class="el" href="lcd_8h.html" title="Basic routines for LCD with driver HD44780U.">lcd.h</a> </p>
 </td></tr>
 <tr class="memitem:ga659fcdf979f69bbd14f852f525f25e02"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__pfleury__lcd.html#ga659fcdf979f69bbd14f852f525f25e02">LCD_IO_MODE</a>&#160;&#160;&#160;1</td></tr>
 <tr class="separator:ga659fcdf979f69bbd14f852f525f25e02"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -124,7 +124,7 @@ These definitions can be defined in a separate include file <b><a class="el" hre
 Definitions of delays</h2></td></tr>
 <tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp73324fc181df7d63636f86a5b76e74f2"></a>Used to calculate delay timers. Adapt the F_CPU define in the Makefile to the clock frequency in Hz of your target</p>
 <p>These delay times can be adjusted, if some displays require different delays.<br  />
-These definitions can be defined in a separate include file <b><a class="el" href="lcd__definitions_8h.html" title="Defining connection of LCD to AVR.">lcd_definitions.h</a></b> instead modifying this file by adding <b>-D_LCD_DEFINITIONS_FILE</b> to the <b>CDEFS</b> section in the Makefile. All definitions added to the file <a class="el" href="lcd__definitions_8h.html" title="Defining connection of LCD to AVR.">lcd_definitions.h</a> will override the default definitions from <a class="el" href="lcd_8h.html">lcd.h</a> </p>
+These definitions can be defined in a separate include file <b><a class="el" href="lcd__definitions_8h.html" title="Defining connection of LCD to AVR.">lcd_definitions.h</a></b> instead modifying this file by adding <b>-D_LCD_DEFINITIONS_FILE</b> to the <b>CDEFS</b> section in the Makefile. All definitions added to the file <a class="el" href="lcd__definitions_8h.html" title="Defining connection of LCD to AVR.">lcd_definitions.h</a> will override the default definitions from <a class="el" href="lcd_8h.html" title="Basic routines for LCD with driver HD44780U.">lcd.h</a> </p>
 </td></tr>
 <tr class="memitem:ga79ca3fe83448ab158a4c566bf292c260"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__pfleury__lcd.html#ga79ca3fe83448ab158a4c566bf292c260">LCD_DELAY_BOOTUP</a>&#160;&#160;&#160;16000</td></tr>
 <tr class="separator:ga79ca3fe83448ab158a4c566bf292c260"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -293,7 +293,7 @@ Functions</h2></td></tr>
 <p>Basic routines for interfacing a HD44780U-based character LCD display. </p>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="lcd_8h.html">lcd.h</a>&gt;</span> </div>
 </div><!-- fragment --><p>LCD character displays can be found in many devices, like espresso machines, laser printers. The Hitachi HD44780 controller and its compatible controllers like Samsung KS0066U have become an industry standard for these types of displays.</p>
-<p>This library allows easy interfacing with a HD44780 compatible display and can be operated in memory mapped mode (LCD_IO_MODE defined as 0 in the include file <a class="el" href="lcd_8h.html">lcd.h</a>.) or in 4-bit IO port mode (LCD_IO_MODE defined as 1). 8-bit IO port mode is not supported.</p>
+<p>This library allows easy interfacing with a HD44780 compatible display and can be operated in memory mapped mode (LCD_IO_MODE defined as 0 in the include file <a class="el" href="lcd_8h.html" title="Basic routines for LCD with driver HD44780U.">lcd.h</a>.) or in 4-bit IO port mode (LCD_IO_MODE defined as 1). 8-bit IO port mode is not supported.</p>
 <p>Memory mapped mode is compatible with old Kanda STK200 starter kit, but also supports generation of R/W signal through A8 address line.</p>
 <dl class="section see"><dt>See also</dt><dd>The chapter <a href=" http://homepage.hispeed.ch/peterfleury/avr-lcd44780.html" target="_blank">Interfacing a HD44780 Based LCD to an AVR</a> on my home page, which shows example circuits how to connect an LCD to an AVR controller.</dd></dl>
 <dl class="section author"><dt>Author</dt><dd>Peter Fleury <a href="#" onclick="location.href='mai'+'lto:'+'pfl'+'eu'+'ry@'+'gm'+'x.c'+'h'; return false;">pfleu<span style="display: none;">.nosp@m.</span>ry@g<span style="display: none;">.nosp@m.</span>mx.ch</a> <a href="http://tinyurl.com/peterfleury">http://tinyurl.com/peterfleury</a></dd></dl>
@@ -885,7 +885,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 </div><!-- contents -->
-<div class="ttc" id="alcd_8h_html"><div class="ttname"><a href="lcd_8h.html">lcd.h</a></div></div>
+<div class="ttc" id="alcd_8h_html"><div class="ttname"><a href="lcd_8h.html">lcd.h</a></div><div class="ttdoc">Basic routines for LCD with driver HD44780U.</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20

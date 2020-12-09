@@ -16,8 +16,9 @@
  * @mainpage
  * @author Filip Dusek
  * @author Marek Svoboda
- * 
- * @file  gpio.h
+ *
+ * @file
+ * @brief Library for basic pin operation
  *
  * @file gpio.h
  * @defgroup gpio GPIO <gpio.h>

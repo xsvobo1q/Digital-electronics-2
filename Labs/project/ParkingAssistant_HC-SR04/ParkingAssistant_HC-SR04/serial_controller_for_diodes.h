@@ -2,11 +2,12 @@
  * serial_controller_for_diodes.h
  *
  * Created: 23.11.2020 14:18:37
- *  Author: Dusek,Svoboda
+ * Author: Dusek,Svoboda
  */ 
 
 /**
  * @file
+ * @brief Bargraphs controller
  * @defgroup our_LED Bargraphs controller <serial_controller_for_diodes.h>
  * @code #include <serial_controller_for_diodes.h> @endcode
  * @code #include <lcd_definitions.h> @endcode
