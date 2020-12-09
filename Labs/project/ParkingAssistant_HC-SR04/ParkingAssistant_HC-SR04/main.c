@@ -59,7 +59,7 @@ int main(void)
 	lcd_gotoxy(14, 1);
 	lcd_puts("cm");
 
-/*    Initialization of bargraphs     */
+/*    Initialization of bar graphs     */
 	DIODE_init();
 	
 /*    Initialization of UART          */	

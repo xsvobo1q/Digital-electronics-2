@@ -1,3 +1,13 @@
+
+/**
+ * @file  lcd_definitions.h
+ * @brief Defining connection of LCD to AVR.
+ * 
+ * @copyright (c) 2019-2020 Tomas Fryza
+ * Dept. of Radio Electronics, Brno University of Technology, Czechia
+ * This work is licensed under the terms of the MIT license.
+ */
+
 #ifndef LCD_DEFINITIONS_H
 #define LCD_DEFINITIONS_H
 
