@@ -102,8 +102,17 @@ int main(void)
 		{
 			wdt++;
 			_delay_ms(1);
-			if(wdt > 200)
+			if(wdt > 15)
 			{
+				if (mux == 1)
+				{
+					distanceFront = 13000;
+				}
+				
+				if (mux == 2)
+				{
+					distanceRear = 13000;
+				}
 				averaging = 0;
 	 			trigEnable = 1;
 	 			help = true;
@@ -123,6 +132,7 @@ int main(void)
 				distanceFront = distanceFront/averaging;
 	 			averaging = 0;
  	 			mux++;
+				wdt = 0;
  			}else
 			{
 				trigEnable = 0;
@@ -142,6 +152,7 @@ int main(void)
 				distanceRear = distanceRear/averaging;
 				averaging = 0;
  				mux++;
+				wdt = 0;
 			} else
 			{
 				trigEnable = 0;
@@ -257,10 +268,7 @@ int displayValues(float distanceRear, float distanceFront){
 	}
 
 
-	// displaying values on display 
-	
-	sprintf(uartString,"Front: %0.1lf  ||  Rear: %0.1lf \r\n",distanceFront, distanceRear);
-	uart_puts(uartString);
+	// displaying values on display and uart
 	
 	if (distanceFront > 200)
 	{
@@ -268,6 +276,7 @@ int displayValues(float distanceRear, float distanceFront){
 	 	lcd_puts("       ");
 	 	lcd_gotoxy(7, 0);
 	 	lcd_puts(" > 200");
+		uart_puts(" Front: > 200cm   ||   ");
 	}else
 	{
 		sprintf(dispString,"%0.1f",distanceFront);
@@ -275,6 +284,8 @@ int displayValues(float distanceRear, float distanceFront){
 	 	lcd_puts("       ");
 	 	lcd_gotoxy(7, 0);
 	 	lcd_puts(dispString);
+		sprintf(uartString, "Front: %0.1lf   ||   ", distanceFront);
+		uart_puts(uartString);
 	}
 
 	if (distanceRear > 200)
@@ -283,6 +294,7 @@ int displayValues(float distanceRear, float distanceFront){
 	 	lcd_puts("       ");
 	 	lcd_gotoxy(7, 1);
 	 	lcd_puts(" > 200");
+		uart_puts(" Rear: > 200cm\r\n");
 	} 
 	else
 	{
@@ -291,6 +303,8 @@ int displayValues(float distanceRear, float distanceFront){
 		lcd_puts("       ");
 		lcd_gotoxy(7, 1);
 		lcd_puts(dispString);
+		sprintf(uartString, "Rear: %0.1lf \r\n", distanceRear);
+		uart_puts(uartString);
 	}
 
 	
@@ -302,7 +316,7 @@ int displayValues(float distanceRear, float distanceFront){
 	{
 		DIODE_FRONT(8);
 	}
-	if ((distanceFront > 10) & (distanceFront <= 15))
+	else if((distanceFront > 10) & (distanceFront <= 15))
 	{
 		DIODE_FRONT(7);
 	}
@@ -342,7 +356,7 @@ int displayValues(float distanceRear, float distanceFront){
 	{
 		DIODE_REAR(8);
 	}
-	if ((distanceRear > 10) & (distanceRear <= 15))
+	else if ((distanceRear > 10) & (distanceRear <= 15))
 	{
 		DIODE_REAR(7);
 	}
