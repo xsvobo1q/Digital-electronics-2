@@ -1,1 +1,1 @@
-Windows je na hovno$ printf n Windows je na hovnocat kokot.txt ! >> kokot.txt!
+Windows je na hovno!!!
