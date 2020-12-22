@@ -15,12 +15,15 @@
 #define BTN			PD0		//pushbutton
 #define BLINK_DELAY 250
 #ifndef F_CPU
-#define F_CPU 16000000      // CPU frequency in Hz required for delay
+	#define F_CPU 16000000      // CPU frequency in Hz required for delay
+#endif
+#ifndef __AVR_ATmega328P__
+	#define __AVR_ATmega328P__
 #endif
 
 /* Includes ----------------------------------------------------------*/
 #include <util/delay.h>     // Functions for busy-wait delay loops
-#include <avr/io.h>         // AVR device-specific IO definitions
+#include <avr/io.h>         // AVR device-specific IO definition
 
 /* Functions ---------------------------------------------------------*/
 /**
